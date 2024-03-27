@@ -1,3 +1,3 @@
-let v = 1;
-v = v + 1;
-console.log(v);
+let x = 2;
+x = "Hallo";
+console.log(x);
