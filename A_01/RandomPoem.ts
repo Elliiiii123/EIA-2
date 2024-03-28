@@ -2,7 +2,7 @@ namespace RandomPoem {
 
     let subject: string[] = ["Affen", "Orangen", "Senioren", "Drachen", "Vegetarier"];
     let predicat: string[] = ["lieben", "brauchen", "wollen", "vergöttern", "bezwingen"];
-    let object: string[] = ["waffen", "Gaffen", "Ohren", "Bluwurst", "Erde"];
+    let object: string[] = ["Waffen", "Kaugummi", "Ohren", "Bluwurst", "Erde"];
 
     //console.log(subject);
     //console.log(predicat);
