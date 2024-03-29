@@ -2,13 +2,13 @@ namespace RandomPoem {
 
     let subject: string[] = ["Affen", "Orangen", "Senioren", "Drachen", "Vegetarier"];
     let predicat: string[] = ["lieben", "brauchen", "wollen", "vergöttern", "bezwingen"];
-    let object: string[] = ["Waffen", "Kaugummi", "Ohren", "Bluwurst", "Erde"];
-
+    let object: string[] = ["Waffen", "Kaugummi", "Ohren", "Blutwurst", "Erde"];
+    debugger;
     //console.log(subject);
     //console.log(predicat);
     //console.log(object);
 
-    for (let i = subject.length; i >= 1; i--) {
+    for (let i:number = subject.length; i >= 1; i--) {
         console.log(getVerse(subject, predicat, object))
     }
 
