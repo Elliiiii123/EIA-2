@@ -3,7 +3,7 @@ var RandomPoem;
 (function (RandomPoem) {
     let subject = ["Affen", "Orangen", "Senioren", "Drachen", "Vegetarier"];
     let predicat = ["lieben", "brauchen", "wollen", "vergöttern", "bezwingen"];
-    let object = ["Waffen", "Kaugummi", "Ohren", "Bluwurst", "Erde"];
+    let object = ["Waffen", "Kaugummi", "Ohren", "Blutwurst", "Erde"];
     //console.log(subject);
     //console.log(predicat);
     //console.log(object);
