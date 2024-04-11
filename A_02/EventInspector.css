@@ -1,0 +1,16 @@
+span {
+    position: fixed;
+    
+}
+
+#div0 {
+    position: absolute;
+    left: 10%;
+    border-color: black;
+}
+
+#div1 {
+    position: absolute;
+    left: 50%;
+    border-color: black;
+}
