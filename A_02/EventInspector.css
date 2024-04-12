@@ -1,16 +1,54 @@
+h1 {
+    position: relative;
+    font-family: Arial, sans-serif; 
+    color: #814caf; 
+    text-align: center; 
+
+}
+
 span {
     position: fixed;
-    
+    border: 2px solid #4f0080; 
+    padding: 5px;
+    font-family: Arial, sans-serif;
 }
 
 #div0 {
+    width: 40%;
+    height: 500px;
     position: absolute;
-    left: 10%;
-    border-color: black;
+    left: 70px;
+    background-color: lavender;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    padding-top: 50px;
 }
 
 #div1 {
     position: absolute;
-    left: 50%;
-    border-color: black;
+    right: 70px;
+    width: 40%;
+    height: 550px;
+    position: absolute;
+    background-color: lavender;
+
+
+}
+
+button {
+    position: relative;
+    top: 30%;
+    background-color: #814caf; 
+    border: none;
+    color: white; 
+    padding: 15px 32px; 
+    text-align: center; 
+    text-decoration: none; 
+    display: inline-block; 
+    font-size: 16px; 
+    margin: 4px 2px;
+    cursor: pointer; 
+    border-radius: 12px; 
+    background-image: url('liana-pattern.jpg');
+    background-size: cover;
 }
