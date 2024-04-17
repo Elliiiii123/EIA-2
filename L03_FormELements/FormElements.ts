@@ -5,19 +5,24 @@ namespace L03_FormElements {
         console.log("Init");
         let fieldsets: NodeListOf<HTMLFieldSetElement> = document.querySelectorAll("fieldset");
 
-        // Install listeners on fieldsets
+        // Install listeners on fieldsets, sucht alle Fieldsets raus
         for (let i: number = 0; i < fieldsets.length; i++) {
+            //for schleife läuft durch  und fügt immer eine ganze Zahl hinzu wenn Fieldset gefunden wird
             let fieldset: HTMLFieldSetElement = fieldsets[i];
+            //Variable Fieldset wird ein Wert zugeordnet
             fieldset.addEventListener("change", handleChange);
             fieldset.addEventListener("input", handleChange);
+            //Listener für jeden die Events Input und change
         }
     }
 
     function handleChange(_event: Event): void {
         let target: HTMLInputElement = <HTMLInputElement>_event.target;
         console.log();
+        //neue Variable vom Typ HTMLInput Element und kriegt werden von angeklicktem Element (target)
         if (_event.type == "change")
             console.warn("Change: " + target.name + " = " + target.value, _event);
+        //console.warn in gelb
         else
             console.log("Input: " + target.name + " = " + target.value, _event);
 
