@@ -5,18 +5,23 @@ var L03_FormElements;
     function init(_event) {
         console.log("Init");
         let fieldsets = document.querySelectorAll("fieldset");
-        // Install listeners on fieldsets
+        // Install listeners on fieldsets, sucht alle Fieldsets raus
         for (let i = 0; i < fieldsets.length; i++) {
+            //for schleife läuft durch  und fügt immer eine ganze Zahl hinzu wenn Fieldset gefunden wird
             let fieldset = fieldsets[i];
+            //Variable Fieldset wird ein Wert zugeordnet
             fieldset.addEventListener("change", handleChange);
             fieldset.addEventListener("input", handleChange);
+            //Listener für jeden die Events Input und change
         }
     }
     function handleChange(_event) {
         let target = _event.target;
         console.log();
+        //neue Variable vom Typ HTMLInput Element und kriegt werden von angeklicktem Element (target)
         if (_event.type == "change")
             console.warn("Change: " + target.name + " = " + target.value, _event);
+        //console.warn in gelb
         else
             console.log("Input: " + target.name + " = " + target.value, _event);
         //Handling checkbox
