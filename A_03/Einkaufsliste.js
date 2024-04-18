@@ -3,18 +3,10 @@ var Einkaufsliste;
 (function (Einkaufsliste) {
     window.addEventListener("load", handleLoad);
     function handleLoad(_event) {
-        console.log(document.getElementById("delete"));
-        // console.log("Start");
-        let deleteButton = document.getElementById("delete");
-        if (!deleteButton) {
-            console.error("Button nicht gefunden!");
-            return;
-        }
-        else {
-            console.log("button gefunden");
-        }
-        let form = document.querySelector("div#form");
-        deleteButton.addEventListener("click", DeleteButton);
+        console.log("Start");
+        let form = (document.querySelector("div#form"));
+        let addButton = (document.getElementById("addButton"));
+        addButton.addEventListener("click", addDiv);
         form.addEventListener("change", handleChange);
     }
     function handleChange(_event) {
@@ -23,21 +15,40 @@ var Einkaufsliste;
         let input = _event.target;
         console.log(input.value);
     }
-    function DeleteButton(_event) {
-        console.log("Das Div 'Einträge' wurde gelöscht.");
-        const eintraegeDiv = document.querySelector("div#Einträge");
-        if (eintraegeDiv) {
-            eintraegeDiv.remove();
+    function addDiv() {
+        const eintärgeDiv = (document.getElementById("Einträge"));
+        const eintragId = "Eintrag_" + Date.now();
+        console.log(eintragId);
+        const neuerEintrag = `
+            <div class="Eintrag" id=${eintragId}>
+            <span class="product">Tomate</span>
+            <div class="quantityBoxDiv">
+                <label for="quantityBox${eintragId}">Quantity:</label>
+                <input type="number" name="Quantity" id="quantityBox${eintragId}" list="numbers" class="smallerInput">
+            </div>
+            <div class="lastBoughtDiv">
+                <span> last bought on the:</span>
+                <span id="lastBought${eintragId}">07.04.24</span>
+            </div>
+            <div class="commentBoxDiv">
+                <label for="commentBox${eintragId}">Comment:</label>
+                <input type="textarea" name="comment" id="commentBox${eintragId}">
+            </div>
+            <div class="checkboxDiv">
+                <label for="checkbox${eintragId}">bought?</label>
+                <input type="checkbox" name="bought" id="checkbox${eintragId}">
+            </div>
+            <button type="button" class="delete" id="deleteButton${eintragId}">-</button>
+            </div>
+            `;
+        eintärgeDiv.insertAdjacentHTML("beforeend", neuerEintrag);
+        let neuerEintragButton = (document.querySelector("#deleteButton" + eintragId));
+        console.log(neuerEintragButton);
+        function deleteEintrag(_event) {
+            let neuerEintrag = document.querySelector("#" + eintragId);
+            neuerEintrag.remove();
         }
-        else {
-            console.log("Einträge Div nicht gefunden.");
-        }
+        neuerEintragButton.addEventListener("click", deleteEintrag);
     }
-    // function addFields() {
-    // }
-    // const addFieldsBtn = document.getElementById('addFieldsBtn');
-    // if (addFieldsBtn) {
-    //     addFieldsBtn.addEventListener('click', addFields);
-    // }
 })(Einkaufsliste || (Einkaufsliste = {}));
 //# sourceMappingURL=Einkaufsliste.js.map

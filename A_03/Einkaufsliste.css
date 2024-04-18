@@ -32,7 +32,7 @@ h2 {
     border-radius: 20px;
 }
 
-#Einträge {
+.Eintrag {
     width: 90%;
     border: 1px double rgb(0, 8, 255); 
     background-color: rgb(151, 181, 237);
@@ -51,12 +51,12 @@ input {
     flex-direction: column;
 }
 
-#product {
+.product {
     font-weight: bold;
     margin: 2%;
 }
 
-#quantityBoxDiv {
+.quantityBoxDiv {
     margin: 1%;
     margin-bottom: 5%;
     display: inline;
@@ -67,7 +67,7 @@ input {
 }
 
 
-#lastBoughtDiv {
+.lastBoughtDiv {
     margin: 1%;
     margin-bottom: 5%;
     display: inline;
@@ -77,7 +77,7 @@ input {
     padding: 0.5%;
 }
 
-#commentBoxDiv{
+.commentBoxDiv{
     margin: 1%; 
     margin-bottom: 5%;
     display: inline;
@@ -87,7 +87,7 @@ input {
     padding: 0.5%;
 }
 
-#checkboxDiv {
+.checkboxDiv {
     margin: 1%;
     margin-bottom: 20px;
     height: 5px;
@@ -111,7 +111,7 @@ input{
     border-radius: 50%; 
 }
 
-#delete {
+.delete {
     width: 25px;
     height: 25px;
     border-radius: 50%; 
