@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Einkaufsliste Formular</title>
-    <link rel="stylesheet" href="Einkausliste.css" type="text/css" media="screen" />
-	<script src="Einkausliste.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="Einkaufsliste.css" type="text/css" media="screen" />
+	<script src="Einkaufsliste.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 <body>
@@ -23,7 +23,7 @@
                 <input name="new product" placeholder="new product">
                 <input type="number" name="Quantity" list="numbers" placeholder="Quantity" class="smallerInput">
                 <input type="textarea" name="comment" placeholder="comment">
-                <button>add</button>
+                <button id="addButton" type="button">+</button>
                 <!-- <span>bought on the 07.04.24</span>
                 <input type="checkbox" name="bought"> bought? -->
             </div>
@@ -46,7 +46,7 @@
                     <label for="checkbox">bought?</label>
                     <input type="checkbox" name="bought" id="checkbox">
                 </div>
-                <button id="delete">-</button>
+                <button type="button" id="delete">-</button>
             </div>
             <!-- <div>
                 <legend>Products</legend>

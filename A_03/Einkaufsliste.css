@@ -1,5 +1,5 @@
 html {
-    background-color: aliceblue;
+    background-color: rgb(230, 240, 249);
 }
 
 body {
@@ -105,6 +105,10 @@ input{
 .smallerInput {
     width: 65px;
     height: 16px; 
+}
+
+#addButton {
+    border-radius: 50%; 
 }
 
 #delete {

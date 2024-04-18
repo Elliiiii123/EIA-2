@@ -3,8 +3,8 @@ namespace Einkaufsliste{
 
     function handleLoad(_event: Event): void {
         console.log("Start");
+        let deleteButton: HTMLButtonElement = <HTMLButtonElement>document.getElementById("delete");
         let form: HTMLDivElement = <HTMLDivElement>document.querySelector("div#form");
-        let deleteButton: HTMLButtonElement = <HTMLButtonElement>document.querySelector("div#delete");
 
         deleteButton.addEventListener("click", DeleteButton);
         form.addEventListener("change", handleChange);
