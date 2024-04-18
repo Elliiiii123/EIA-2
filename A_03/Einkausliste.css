@@ -22,7 +22,7 @@ h2 {
 }
 
 #NeuerEintrag {
-    width: 37%;
+    width: 30%;
     height: 10%;
     background-color: rgb(180, 208, 236); 
     border: 1px double rgb(32, 116, 199);  
@@ -42,8 +42,8 @@ h2 {
 
 input {
     border-radius: 20px;
-    padding: 2px; /* Hinzufügen von Innenabstand für einen schöneren Look */
-    border: 1px solid #ccc; /* Fügt einen dünnen Rahmen hinzu */
+    padding: 2px;
+    border: 1px solid #ccc; 
 }
 
 #container {
@@ -58,6 +58,7 @@ input {
 
 #quantityBoxDiv {
     margin: 1%;
+    margin-bottom: 5%;
     display: inline;
     white-space: nowrap;
     border-radius: 20px; 
@@ -68,6 +69,7 @@ input {
 
 #lastBoughtDiv {
     margin: 1%;
+    margin-bottom: 5%;
     display: inline;
     white-space: nowrap;
     border-radius: 20px; 
@@ -77,6 +79,7 @@ input {
 
 #commentBoxDiv{
     margin: 1%; 
+    margin-bottom: 5%;
     display: inline;
     white-space: nowrap;
     border-radius: 20px; 
@@ -86,6 +89,8 @@ input {
 
 #checkboxDiv {
     margin: 1%;
+    margin-bottom: 20px;
+    height: 5px;
     display: inline;
     white-space: nowrap;
     border-radius: 20px; 
@@ -103,8 +108,8 @@ input{
 }
 
 #delete {
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     border-radius: 50%; 
     background: linear-gradient(145deg, #d97f91, #ef1c51);
     color: white; 
@@ -127,13 +132,13 @@ input{
 
 @media only screen and (max-width: 1024px) {
     input {
-        width: 30%;
+        width: 80%;
     }
 }
 
 @media only screen and (max-width: 768px) {
     input {
-        width: 30%;
+        width: 90%;
     }
 }
 
