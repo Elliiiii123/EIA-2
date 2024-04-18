@@ -19,31 +19,52 @@
 
     <form>
         <div id="form">
-            <fieldset>
+            <div id="NeuerEintrag">
+                <input name="new product" placeholder="new product">
+                <input type="number" name="Quantity" list="numbers" placeholder="Quantity" class="smallerInput">
+                <input type="textarea" name="comment" placeholder="comment">
+                <button>add</button>
+                <!-- <span>bought on the 07.04.24</span>
+                <input type="checkbox" name="bought"> bought? -->
+            </div>
+            <br>
+            <div id="Einträge">
+                <span id="product">Tomate</span>
+                <div id="quantityBoxDiv">
+                    <label for="quantityBox">Quantity:</label>
+                    <input type="number" name="Quantity" id="quantityBox" list="numbers" class="smallerInput">
+                </div>
+                <div id="lastBoughtDiv">
+                    <span> last bought on the:</span>
+                    <span id="lastBought">07.04.24</span>
+                </div>
+                <div id="commentBoxDiv">
+                    <label for="commentBox">Comment:</label>
+                    <input type="textarea" name="comment" id="commentBox">
+                </div>
+                <div id="checkboxDiv">
+                    <label for="checkbox">bought?</label>
+                    <input type="checkbox" name="bought" id="checkbox">
+                </div>
+                <button id="delete">-</button>
+            </div>
+            <!-- <div>
                 <legend>Products</legend>
                 <p>Tomate</p>
                 <p>Klopapier</p>
                 <input name="new product">
-            </fieldset>
-            <fieldset>
                 <legend>Quantity</legend>
                 <p>3</p>
                 <p>1</p>
                 <input type="number" name="Quantity" list="numbers">
-            </fieldset>
-            <fieldset>
                 <legend>bought last on</legend>
                 <p>07.04.24</p>
                 <p>29.03.24</p>
                 <p></p>
-            </fieldset>
-            <fieldset>
                 <legend>comment</legend>
                 <p>Bio</p>
                 <p>Packung</p>
                 <input type="textarea" name="comment">
-            </fieldset>
-            <fieldset>
                 <legend>bought?</legend>
                 <br>
                 <input type="checkbox" name="bought">
@@ -51,11 +72,38 @@
                 <input type="checkbox" name="bought">
                 <br><br>
                 <input type="checkbox" name="bought">
-            </fieldset>
-        </div>
+            </div> -->
+            <!-- <fieldset>
+                <legend>Quantity</legend>
+                <p>3</p>
+                <p>1</p>
+                <input type="number" name="Quantity" list="numbers">
+            </fieldset> -->
+            <!-- <fieldset>
+                <legend>bought last on</legend>
+                <p>07.04.24</p>
+                <p>29.03.24</p>
+                <p></p>
+            </fieldset> -->
+            <!-- <fieldset>
+                <legend>comment</legend>
+                <p>Bio</p>
+                <p>Packung</p>
+                <input type="textarea" name="comment">
+            </fieldset> -->
+            <!-- <fieldset>
+                <legend>bought?</legend>
+                <br>
+                <input type="checkbox" name="bought">
+                <br><br>
+                <input type="checkbox" name="bought">
+                <br><br>
+                <input type="checkbox" name="bought">
+            </fieldset> -->
+        <!-- </div> -->
     </form>
 
-    <button id="addFieldsBtn">Add Product</button>
+<!-- <button id="addFieldsBtn">Add Product</button> -->
 
 </body>
 </html>
