@@ -95,7 +95,7 @@ input {
 }
 
 .checkboxDiv {
-    display: inline-block;
+    display: inline-flex;
     width: 90px;
     white-space: nowrap;
     border-radius: 20px; 
