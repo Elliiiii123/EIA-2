@@ -25,16 +25,22 @@ h2 {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    width: 30%;
+    width: 50%;
     height: 10%;
     background-color: rgb(180, 208, 236); 
     border: 1px double rgb(32, 116, 199);  
     padding: 7px;
     border-radius: 20px;
-}
+    display: flex; 
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}   
 
 .Eintrag {
     position: relative;
+    display: flex; 
+    flex-wrap: wrap;
     left: 50%;
     transform: translateX(-50%); 
     width: 70%;
@@ -51,6 +57,7 @@ input {
     border-radius: 20px;
     padding: 2px;
     border: 1px solid #ccc; 
+    flex: 1;
 }
 
 #container {
@@ -95,6 +102,7 @@ input {
 }
 
 .checkboxDiv {
+    margin: 1%;
     display: inline-flex;
     width: 90px;
     white-space: nowrap;
@@ -130,8 +138,10 @@ input {
 }
 
 .delete {
-    width: 25px;
-    height: 25px;
+    left: 3%;
+    width: 30px;
+    height: 30px;
+    margin: 1%;
     border-radius: 50%; 
     background: linear-gradient(145deg, #d97f91, #ef1c51);
     color: white; 

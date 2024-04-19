@@ -32,14 +32,14 @@ namespace Einkaufsliste {
 
     const neuerEintrag: string = `
             <div class="Eintrag" id=${eintragId}>
-            <span class="product">Tomate</span>
+            <span class="product">Product</span>
             <div class="quantityBoxDiv">
                 <label for="quantityBox${eintragId}">Quantity:</label>
                 <input type="number" name="Quantity" id="quantityBox${eintragId}" list="numbers" class="smallerInput">
             </div>
             <div class="lastBoughtDiv">
                 <span> last bought on the:</span>
-                <span id="lastBought${eintragId}">07.04.24</span>
+                <span id="lastBought${eintragId}">00.00.00</span>
             </div>
             <div class="commentBoxDiv">
                 <label for="commentBox${eintragId}">Comment:</label>
