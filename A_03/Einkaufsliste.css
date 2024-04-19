@@ -22,38 +22,32 @@ h2 {
 }
 
 #NeuerEintrag {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
     width: 30%;
     height: 10%;
     background-color: rgb(180, 208, 236); 
     border: 1px double rgb(32, 116, 199);  
-    position: relative;
-    left: 30%;
     padding: 7px;
     border-radius: 20px;
 }
 
-@media only screen and (max-width: 1024px) {
-    input {
-        width: 80%;
-    }
-
-}
-
-@media only screen and (max-width: 768px) {
-    input {
-        width: 90%;
-    }
-}
-
 .Eintrag {
-    width: 90%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%); 
+    width: 70%;
     border: 1px double rgb(0, 8, 255); 
     background-color: rgb(151, 181, 237);
     padding: 7px; 
     border-radius: 20px;
+    margin: 1%;
 }
 
 input {
+    position: relative;
+    width: 160px;
     border-radius: 20px;
     padding: 2px;
     border: 1px solid #ccc; 
@@ -71,8 +65,7 @@ input {
 
 .quantityBoxDiv {
     margin: 1%;
-    margin-bottom: 5%;
-    display: inline;
+    display: inline-block;
     white-space: nowrap;
     border-radius: 20px; 
     border: 1px solid #221573; 
@@ -83,8 +76,7 @@ input {
 
 .lastBoughtDiv {
     margin: 1%;
-    margin-bottom: 5%;
-    display: inline;
+    display: inline-block;
     white-space: nowrap;
     border-radius: 20px; 
     border: 1px solid #221573; 
@@ -94,8 +86,7 @@ input {
 
 .commentBoxDiv{
     margin: 1%; 
-    margin-bottom: 5%;
-    display: inline;
+    display: inline-block;
     white-space: nowrap;
     border-radius: 20px; 
     border: 1px solid #221573; 
@@ -111,11 +102,6 @@ input {
     border: 1px solid #221573; 
     padding: 0.5%;
     background-color: #ad7fd9 ;
-}
-
-input{
-    position: relative;
-    width: 20%;
 }
 
 .smallerInput {
