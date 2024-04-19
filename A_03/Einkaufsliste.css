@@ -32,6 +32,19 @@ h2 {
     border-radius: 20px;
 }
 
+@media only screen and (max-width: 1024px) {
+    input {
+        width: 80%;
+    }
+
+}
+
+@media only screen and (max-width: 768px) {
+    input {
+        width: 90%;
+    }
+}
+
 .Eintrag {
     width: 90%;
     border: 1px double rgb(0, 8, 255); 
@@ -64,6 +77,7 @@ input {
     border-radius: 20px; 
     border: 1px solid #221573; 
     padding: 0.5%;
+    background-color: #ad7fd9 ;
 }
 
 
@@ -75,6 +89,7 @@ input {
     border-radius: 20px; 
     border: 1px solid #221573; 
     padding: 0.5%;
+    background-color: #ad7fd9 ;
 }
 
 .commentBoxDiv{
@@ -85,21 +100,22 @@ input {
     border-radius: 20px; 
     border: 1px solid #221573; 
     padding: 0.5%;
+    background-color: #ad7fd9 ;
 }
 
 .checkboxDiv {
-    margin: 1%;
-    margin-bottom: 20px;
-    height: 5px;
-    display: inline;
+    display: inline-block;
+    width: 90px;
     white-space: nowrap;
     border-radius: 20px; 
     border: 1px solid #221573; 
     padding: 0.5%;
+    background-color: #ad7fd9 ;
 }
 
 input{
-    width: auto;
+    position: relative;
+    width: 20%;
 }
 
 .smallerInput {
@@ -108,7 +124,23 @@ input{
 }
 
 #addButton {
+    width: 25px;
+    height: 25px;
     border-radius: 50%; 
+    background: linear-gradient(145deg, #ad7fd9, #661cef);
+    color: white; 
+    font-size: 20px; 
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease; 
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
+    position: relative;
+    font-weight: bold;
+}
+#addButton:hover {
+    background-color: #781d1d;
+    transform: translateY(2px); 
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .delete {
@@ -124,25 +156,12 @@ input{
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
     position: relative;
     font-weight: bold;
-    
 }
   
-#delete:hover {
+.delete:hover {
     background-color: #781d1d;
     transform: translateY(2px); 
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
 
-}
-
-@media only screen and (max-width: 1024px) {
-    input {
-        width: 80%;
-    }
-}
-
-@media only screen and (max-width: 768px) {
-    input {
-        width: 90%;
-    }
 }
 
