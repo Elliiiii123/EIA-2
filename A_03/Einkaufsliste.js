@@ -6,6 +6,7 @@ var Einkaufsliste;
     function handleLoad(_event) {
         //Start signalisiert in der Konsole den Start der handleLoad Funktion
         console.log("Start");
+        Einkaufsliste.generateContent(Einkaufsliste.data);
         //die Variable form kriegt den Wert des form divs aus der HTML
         let form = (document.querySelector("div#form"));
         // die Variable addButton erhält den Wert des add Buttons aus der HTML

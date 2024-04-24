@@ -6,6 +6,8 @@ namespace Einkaufsliste {
     //Start signalisiert in der Konsole den Start der handleLoad Funktion
     console.log("Start");
 
+    generateContent(data)
+
     //die Variable form kriegt den Wert des form divs aus der HTML
     let form: HTMLDivElement = <HTMLDivElement>(
       document.querySelector("div#form")
