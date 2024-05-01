@@ -98,34 +98,28 @@ namespace GenerativeKunst {
 
         let radiusX: number = 170; 
         let radiusY: number = 100;
-        let color: string = "violet"; 
-    
+        let color = "violet";
+
         crc2.save();
         crc2.translate(_position.x, _position.y);
         crc2.strokeStyle = color;
+        crc2.fillStyle = "rgba(0, 0, 0, 0)"; // Transparente Füllfarbe
         crc2.beginPath();
         crc2.ellipse(0, 0, radiusX, radiusY, 0, 0, 2 * Math.PI);
-        crc2.fillStyle = "transparent"; 
-        crc2.fill(); 
-        crc2.stroke(); 
+        crc2.stroke(); // Rand zeichnen
         crc2.restore();
+    
     }
 
     function drawBubbles(_position:Vector):void {
         console.log("Bubbles");
-        let r1: number = 10;
-        let r2: number = 20;
-        let gradient: CanvasGradient = crc2. createRadialGradient(0, 0, r1, 0, 0, r2);
 
-        gradient.addColorStop(0, "white"); 
-        gradient.addColorStop(0.5, "blue");
-
-        crc2.save();
-        crc2.translate (_position.x, _position.y);
-        crc2.fillStyle = gradient;
-        crc2.arc(0, 0, 20, 0, 2 * Math.PI);
-        crc2.fill();
-        crc2.restore();
+        // crc2.save();
+        // crc2.translate (_position.x, _position.y);
+        // crc2.fillStyle = "light blue";
+        // crc2.arc(0, 0, 20, 0, 2 * Math.PI);
+        // crc2.fill();
+        // crc2.restore();
 
     }
 
