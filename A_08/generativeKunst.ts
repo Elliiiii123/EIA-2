@@ -126,9 +126,10 @@ namespace GenerativeKunst {
     function drawCurve():void {
         console.log("Curve");
 
-        crc2.save(),
-        crc2.beginPath()
-        crc2.bezierCurveTo(0,10,10,0,10,0)
+        crc2.save();
+        crc2.beginPath();
+        crc2.bezierCurveTo(0,10,10,0,10,0);
+        crc2.restore();
 
     }
 
