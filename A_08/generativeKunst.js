@@ -42,7 +42,7 @@ var GenerativeKunst;
     }
     function drawDiamond(_position) {
         console.log("Diamond");
-        let sizeX = 40; // Breite des Diamanten
+        let sizeX = 40;
         let sizeY = 60;
         let color = "darkviolet";
         crc2.save();

@@ -58,7 +58,7 @@ namespace GenerativeKunst {
     function drawDiamond(_position:Vector):void {
         console.log("Diamond");
 
-        let sizeX: number = 40; // Breite des Diamanten
+        let sizeX: number = 40;
         let sizeY: number = 60; 
         let color: string = "darkviolet"; 
 
