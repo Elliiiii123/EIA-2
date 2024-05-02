@@ -16,10 +16,10 @@ namespace GenerativeKunst {
         crc2= <CanvasRenderingContext2D>canvas.getContext("2d");
 
         drawBackground();
+        drawEllipse({x:400, y:300});
         drawArc({x:400, y:300}, {x:50,y:75});
         drawDiamond({x:300, y:300});
         // drawDiamonds();
-        drawEllipse({x:400, y:300});
         drawBubbles({x:200, y:200});
         drawCurve();
         drawText();
@@ -42,14 +42,14 @@ namespace GenerativeKunst {
 
         let r1: number = 30;
         let r2: number = 150;
-        let gradient: CanvasGradient = crc2. createRadialGradient(0, 0, r1, 0, 0, r2);
+        let gradient1: CanvasGradient = crc2. createRadialGradient(0, 0, r1, 0, 0, r2);
 
-        gradient.addColorStop(0, "white"); 
-        gradient.addColorStop(0.5, "blue");
+        gradient1.addColorStop(0, "white"); 
+        gradient1.addColorStop(0.5, "red");
 
         crc2.save();
         crc2.translate (_position.x, _position.y);
-        crc2.fillStyle = gradient;
+        crc2.fillStyle = gradient1;
         crc2.arc(0, 0, 50, 0, 2 * Math.PI);
         crc2.fill();
         crc2.restore();
@@ -113,12 +113,12 @@ namespace GenerativeKunst {
     function drawBubbles(_position:Vector):void {
         console.log("Bubbles");
 
-        // crc2.save();
-        // crc2.translate (_position.x, _position.y);
-        // crc2.fillStyle = "light blue";
-        // crc2.arc(0, 0, 20, 0, 2 * Math.PI);
-        // crc2.fill();
-        // crc2.restore();
+        crc2.save();
+        crc2.translate (_position.x, _position.y);
+        crc2.fillStyle = "light blue";
+        crc2.arc(0, 0, 20, 0, 2 * Math.PI);
+        crc2.fill();
+        crc2.restore();
 
     }
 
