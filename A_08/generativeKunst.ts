@@ -103,10 +103,9 @@ namespace GenerativeKunst {
         crc2.save();
         crc2.translate(_position.x, _position.y);
         crc2.strokeStyle = color;
-        crc2.fillStyle = "rgba(0, 0, 0, 0)"; // Transparente Füllfarbe
         crc2.beginPath();
         crc2.ellipse(0, 0, radiusX, radiusY, 0, 0, 2 * Math.PI);
-        crc2.stroke(); // Rand zeichnen
+        crc2.stroke(); 
         crc2.restore();
     
     }
@@ -126,6 +125,11 @@ namespace GenerativeKunst {
 
     function drawCurve():void {
         console.log("Curve");
+
+        crc2.save(),
+        crc2.beginPath()
+        crc2.bezierCurveTo(0,10,10,0,10,0)
+
     }
 
     function drawText():void {
