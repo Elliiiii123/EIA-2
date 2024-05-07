@@ -1,5 +1,5 @@
 namespace classes {
-    debugger
+    
     class Vector {
         x: number;
         y: number;

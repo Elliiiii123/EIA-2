@@ -1,7 +1,6 @@
 "use strict";
 var classes;
 (function (classes) {
-    debugger;
     class Vector {
         x;
         y;
