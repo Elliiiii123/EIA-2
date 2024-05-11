@@ -18,6 +18,7 @@ namespace EntenteichClasses {
 
     draw():void{
         console.log("Duck draw")
+        
     }
 
     }

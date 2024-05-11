@@ -1,16 +1,17 @@
 namespace EntenteichClasses {
+
     export class Flower{
-        position: Vector;
-        color: string;
-        size: Vector;
+    position: Vector;
+    color: string;
+    size: Vector;
     
-        constructor (){
-            console.log("Flower Constructor")
-        }
+    constructor (){
+        console.log("Flower Constructor")
+    }
     
-        draw():void{
-            console.log("Flower draw")
-        }
+    draw():void{
+        console.log("Flower draw")
+    }
     
-        }
+    }
 }
