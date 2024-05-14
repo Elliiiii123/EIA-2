@@ -3,28 +3,39 @@ var EntenteichClasses;
 (function (EntenteichClasses) {
     //Eventlistener für handleLoad Funktion
     window.addEventListener("load", handleLoad);
+    let clouds = [];
+    let trees = [];
     function handleLoad(_event) {
         //query selector um auf den canvas zuzugreifen und überprüfen ob er da ist
         let canvas = document.querySelector("canvas");
         if (!canvas)
             return;
         EntenteichClasses.crc2 = canvas.getContext("2d");
+        for (let i = 0; i < 5; i++) {
+            //neue Wolke wird an zufälliger Position erzeugt
+            let cloud = new EntenteichClasses.Cloud(Math.random() * 400, Math.random() * 150);
+            //Wolken werden an des Array angehängt
+            clouds.push(cloud);
+        }
+        let tree = new EntenteichClasses.Tree(389, 320);
+        console.log(tree);
+        tree.draw();
+        trees.push(tree);
         drawBackground();
-        drawSun();
-        drawMountain();
-        drawForrest();
-        drawCloud();
-        drawHouse();
-        drawTree();
-        drawLake();
-        drawDuck(200, 400);
-        drawStandingDuck(300, 500, -0);
-        drawDuckTail(170, 370);
-        drawFlower(200, 563, "pink");
-        drawFlowers();
-        drawBush();
+        setInterval(animate, 40);
         let duck = new EntenteichClasses.Duck;
         console.log(duck);
+    }
+    function animate() {
+        console.log("animate");
+        drawBackground();
+        for (let i = 0; i < 5; i++) {
+            clouds[i].move();
+            clouds[i].draw();
+        }
+        for (let i = 0; i < 1; i++) {
+            trees[i].draw();
+        }
     }
     function drawBackground() {
         console.log("Background");
@@ -34,6 +45,17 @@ var EntenteichClasses;
         gradient.addColorStop(0.27, "hsl(120, 60%, 30%)");
         EntenteichClasses.crc2.fillStyle = gradient;
         EntenteichClasses.crc2.fillRect(0, 0, EntenteichClasses.crc2.canvas.width, EntenteichClasses.crc2.canvas.height);
+        drawSun();
+        drawMountain();
+        drawForrest();
+        drawHouse();
+        drawLake();
+        drawDuck(200, 400);
+        drawStandingDuck(300, 500, -0);
+        drawDuckTail(170, 370);
+        drawFlower(200, 563, "pink");
+        drawFlowers();
+        drawBush();
     }
     function drawSun() {
         //Zentrum und Radius des Gradienten für die Sonne
@@ -99,7 +121,6 @@ var EntenteichClasses;
             return value / 233280;
         };
     }
-    EntenteichClasses.pseudoRandom = pseudoRandom;
     function drawForrest() {
         console.log("Forrest");
         let numberOfParticles = 170; // Anzahl der Partikel im Büschel
@@ -160,76 +181,6 @@ var EntenteichClasses;
         EntenteichClasses.crc2.closePath();
         EntenteichClasses.crc2.fill();
         EntenteichClasses.crc2.stroke();
-        EntenteichClasses.crc2.restore();
-    }
-    let tree = new EntenteichClasses.Tree();
-    console.log(tree);
-    tree.draw();
-    //später weg, nur weil class net funktioniert
-    function drawTree() {
-        console.log("Tree draw");
-        EntenteichClasses.crc2.save();
-        EntenteichClasses.crc2.translate(390, 320);
-        EntenteichClasses.crc2.fillStyle = "brown";
-        EntenteichClasses.crc2.beginPath();
-        EntenteichClasses.crc2.moveTo(0, 0);
-        EntenteichClasses.crc2.lineTo(-60, 0);
-        EntenteichClasses.crc2.lineTo(-48, -20);
-        EntenteichClasses.crc2.lineTo(-45, -50);
-        EntenteichClasses.crc2.lineTo(-40, -100);
-        EntenteichClasses.crc2.lineTo(-90, -120);
-        EntenteichClasses.crc2.lineTo(-100, -130);
-        EntenteichClasses.crc2.lineTo(-90, -125);
-        EntenteichClasses.crc2.lineTo(-50, -120);
-        EntenteichClasses.crc2.lineTo(-60, -150);
-        EntenteichClasses.crc2.lineTo(-100, -170);
-        EntenteichClasses.crc2.lineTo(-140, -170);
-        EntenteichClasses.crc2.lineTo(-100, -180);
-        EntenteichClasses.crc2.lineTo(-140, -190);
-        EntenteichClasses.crc2.lineTo(-90, -185);
-        EntenteichClasses.crc2.lineTo(-55, -170);
-        EntenteichClasses.crc2.lineTo(-30, -140);
-        EntenteichClasses.crc2.lineTo(-30, -180);
-        EntenteichClasses.crc2.lineTo(-70, -200);
-        EntenteichClasses.crc2.lineTo(-90, -220);
-        EntenteichClasses.crc2.lineTo(-30, -190);
-        EntenteichClasses.crc2.lineTo(0, -230);
-        EntenteichClasses.crc2.lineTo(0, -200);
-        EntenteichClasses.crc2.lineTo(-5, -150);
-        EntenteichClasses.crc2.lineTo(0, -160);
-        EntenteichClasses.crc2.lineTo(0, -130);
-        EntenteichClasses.crc2.lineTo(-5, -100);
-        EntenteichClasses.crc2.fill();
-        EntenteichClasses.crc2.restore();
-    }
-    let cloud = new EntenteichClasses.Cloud();
-    console.log(cloud);
-    cloud.draw();
-    function drawCloud() {
-        console.log("Forrest");
-        let numberOfParticles = 50; // Anzahl der Partikel in der Wolke
-        let cloudWidth = 120; // Breite der Wolke
-        let cloudHeight = 40; // Höhe der Wolke
-        let xPosition = 40; // Feste X-Position der Wolke
-        let yPosition = 50; // Y-Position der Wolke
-        let random = pseudoRandom(42);
-        for (let i = 0; i < numberOfParticles; i++) {
-            let x = xPosition + (i * (cloudWidth / numberOfParticles)); // Feste X-Position für jeden Partikel, abhängig von der Wolkenbreite
-            let y = yPosition + (random() * cloudHeight); // Zufällige Y-Position innerhalb der Wolke
-            drawCloudParticle(x, y); // Partikel zeichnen
-        }
-    }
-    function drawCloudParticle(x, y) {
-        let gradient = EntenteichClasses.crc2.createRadialGradient(x, y, 0, x, y, 15);
-        // Farben für den Gradienten festlegen
-        gradient.addColorStop(0, "white"); // Der Innenbereich des Partikels ist undurchsichtig (weiß)
-        gradient.addColorStop(1, "rgba(255, 255, 255, 0)"); // Der äußere Bereich des Partikels wird transparent
-        // Stelle den Gradienten als Füllfarbe für das Partikel ein
-        EntenteichClasses.crc2.save();
-        EntenteichClasses.crc2.beginPath();
-        EntenteichClasses.crc2.arc(x, y, 15, 0, Math.PI * 2); // Kreispartikel zeichnen
-        EntenteichClasses.crc2.fillStyle = gradient; // Gradient für Wolke
-        EntenteichClasses.crc2.fill();
         EntenteichClasses.crc2.restore();
     }
     let lake = new EntenteichClasses.Lake();

@@ -1,15 +1,17 @@
 namespace EntenteichClasses {
     export class Cloud{
-        position: Vector;
-        color: string;
-        size: Vector;
+        x:number;
+        y:number;
     
-        constructor (){
+        constructor (_x:number, _y:number){
             console.log("Cloud Constructor")
+            this.x = _x;
+            this.y = _y;
         }
     
         move ():void{
-            console.log("Cloud move")
+            console.log("Cloud move");
+            this.x +=1;
         }
     
         draw():void{
@@ -17,13 +19,16 @@ namespace EntenteichClasses {
             let numberOfParticles: number = 50; // Anzahl der Partikel in der Wolke
             let cloudWidth: number = 120; // Breite der Wolke
             let cloudHeight: number = 40; // Höhe der Wolke
-            let xPosition: number = 40; // Feste X-Position der Wolke
-            let yPosition: number = 50; // Y-Position der Wolke
-            let random = pseudoRandom(42)
+
+            let random = this.pseudoRandom(42)
+
+            crc2.save();
+            crc2.translate(this.x,this.y);
+            crc2.restore();
         
             for (let i = 0; i < numberOfParticles; i++) {
-                let x = xPosition + (i * (cloudWidth / numberOfParticles)); // Feste X-Position für jeden Partikel, abhängig von der Wolkenbreite
-                let y = yPosition + (random() * cloudHeight); // Zufällige Y-Position innerhalb der Wolke
+                let x = this.x + (i * (cloudWidth / numberOfParticles)); // Feste X-Position für jeden Partikel, abhängig von der Wolkenbreite
+                let y = this.y + (random() * cloudHeight); // Zufällige Y-Position innerhalb der Wolke
                 this.drawCloudParticle(x, y); // Partikel zeichnen
             }
         }
@@ -45,7 +50,13 @@ namespace EntenteichClasses {
             crc2.restore();    
         }
 
-
-    
+        pseudoRandom(seed: number): () => number {
+            let value = seed;
+            return function() {
+                value = (value * 9301 + 49297) % 233280;
+                return value / 233280;
+            };
         }
+
+    }
 }

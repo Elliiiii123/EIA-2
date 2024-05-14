@@ -2,26 +2,29 @@
 var EntenteichClasses;
 (function (EntenteichClasses) {
     class Cloud {
-        position;
-        color;
-        size;
-        constructor() {
+        x;
+        y;
+        constructor(_x, _y) {
             console.log("Cloud Constructor");
+            this.x = _x;
+            this.y = _y;
         }
         move() {
             console.log("Cloud move");
+            this.x += 1;
         }
         draw() {
             console.log("Cloud draw");
             let numberOfParticles = 50; // Anzahl der Partikel in der Wolke
             let cloudWidth = 120; // Breite der Wolke
             let cloudHeight = 40; // Höhe der Wolke
-            let xPosition = 40; // Feste X-Position der Wolke
-            let yPosition = 50; // Y-Position der Wolke
-            let random = EntenteichClasses.pseudoRandom(42);
+            let random = this.pseudoRandom(42);
+            EntenteichClasses.crc2.save();
+            EntenteichClasses.crc2.translate(this.x, this.y);
+            EntenteichClasses.crc2.restore();
             for (let i = 0; i < numberOfParticles; i++) {
-                let x = xPosition + (i * (cloudWidth / numberOfParticles)); // Feste X-Position für jeden Partikel, abhängig von der Wolkenbreite
-                let y = yPosition + (random() * cloudHeight); // Zufällige Y-Position innerhalb der Wolke
+                let x = this.x + (i * (cloudWidth / numberOfParticles)); // Feste X-Position für jeden Partikel, abhängig von der Wolkenbreite
+                let y = this.y + (random() * cloudHeight); // Zufällige Y-Position innerhalb der Wolke
                 this.drawCloudParticle(x, y); // Partikel zeichnen
             }
         }
@@ -37,6 +40,13 @@ var EntenteichClasses;
             EntenteichClasses.crc2.fillStyle = gradient; // Gradient für Wolke
             EntenteichClasses.crc2.fill();
             EntenteichClasses.crc2.restore();
+        }
+        pseudoRandom(seed) {
+            let value = seed;
+            return function () {
+                value = (value * 9301 + 49297) % 233280;
+                return value / 233280;
+            };
         }
     }
     EntenteichClasses.Cloud = Cloud;

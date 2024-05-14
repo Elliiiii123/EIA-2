@@ -1,17 +1,19 @@
 namespace EntenteichClasses {
     export class Tree{
-        position: Vector = {x:200, y:422};
-        color: string = "brown";
-        size: number;
+        x:number;//200
+        y:number;//440
     
-        constructor (){
+        constructor (_x:number, _y:number){
             console.log("Tree Constructor");
+            this.x = _x;
+            this.y = _y;
         }
-    
+
         draw():void{
             console.log("Tree draw");
+
             crc2.save();
-            crc2.translate(390, 320);
+            crc2.translate(this.x, this.y);
             crc2.fillStyle = "brown";
             crc2.beginPath();
             crc2.moveTo(0, 0);

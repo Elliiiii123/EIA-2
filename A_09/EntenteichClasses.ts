@@ -5,32 +5,46 @@ namespace EntenteichClasses {
     //Definiton der crc2 Variable als den HTML Canvas
     export let crc2: CanvasRenderingContext2D;
 
+    let clouds:Cloud[] = [];
+    let trees:Tree[] = [];
+
+    
     function handleLoad(_event:Event):void{
         //query selector um auf den canvas zuzugreifen und überprüfen ob er da ist
         let canvas: HTMLCanvasElement | null = document.querySelector("canvas");
         if (!canvas)
             return;
-        crc2= <CanvasRenderingContext2D>canvas.getContext("2d");
+        crc2 = <CanvasRenderingContext2D>canvas.getContext("2d");
+
+        for (let i:number = 0;i<5;i++){
+            //neue Wolke wird an zufälliger Position erzeugt
+            let cloud: Cloud = new Cloud(Math.random() * 400, Math.random() * 150);
+            //Wolken werden an des Array angehängt
+            clouds.push(cloud);
+        }
+
+        let tree: Tree = new Tree(389, 320);
+        console.log(tree);
+        tree.draw();
+        trees.push(tree);
 
         drawBackground();
-        drawSun();
-        drawMountain();
-        drawForrest();
-        drawCloud();
-        drawHouse();
-        drawTree();
-        drawLake();
-        drawDuck(200,400);
-        drawStandingDuck(300, 500,-0);
-        drawDuckTail(170,370);
-        drawFlower(200,563, "pink");
-        drawFlowers();
-        drawBush();
-
-
+        setInterval(animate, 40);
 
         let duck: Duck = new Duck;
         console.log (duck)
+    }
+
+    function animate(): void{
+        console.log("animate");
+        drawBackground();
+        for (let i:number = 0; i<5; i++){
+            clouds[i].move();
+            clouds [i].draw();
+        }
+        for (let i:number = 0; i<1; i++){
+            trees [i].draw();
+        }
     }
 
     function drawBackground():void {
@@ -43,6 +57,18 @@ namespace EntenteichClasses {
     
         crc2.fillStyle = gradient;
         crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height);
+
+        drawSun();
+        drawMountain();
+        drawForrest();
+        drawHouse();
+        drawLake();
+        drawDuck(200,400);
+        drawStandingDuck(300, 500,-0);
+        drawDuckTail(170,370);
+        drawFlower(200,563, "pink");
+        drawFlowers();
+        drawBush();
 
     }
 
@@ -110,7 +136,7 @@ namespace EntenteichClasses {
         crc2.restore();
     }
     
-    export function pseudoRandom(seed: number): () => number {
+    function pseudoRandom(seed: number): () => number {
         let value = seed;
         return function() {
             value = (value * 9301 + 49297) % 233280;
@@ -187,87 +213,8 @@ namespace EntenteichClasses {
         crc2.restore();
     }
 
-    let tree: Tree = new Tree();
-    console.log(tree);
-    tree.draw();
 
-    //später weg, nur weil class net funktioniert
-    function drawTree():void{
-        console.log("Tree draw");
-
-        crc2.save();
-        crc2.translate(390, 320);
-        crc2.fillStyle = "brown";
-        crc2.beginPath();
-        crc2.moveTo(0, 0);
-        crc2.lineTo(-60,0); 
-        crc2.lineTo(-48,-20);
-        crc2.lineTo(-45,-50);
-        crc2.lineTo(-40,-100);
-        crc2.lineTo(-90,-120);
-        crc2.lineTo(-100,-130);
-        crc2.lineTo(-90,-125);
-        crc2.lineTo(-50,-120);
-        crc2.lineTo(-60,-150);
-        crc2.lineTo(-100,-170);
-        crc2.lineTo(-140,-170);
-        crc2.lineTo(-100,-180);
-        crc2.lineTo(-140,-190);
-        crc2.lineTo(-90,-185);
-        crc2.lineTo(-55,-170);
-        crc2.lineTo(-30,-140);
-        crc2.lineTo(-30,-180);
-        crc2.lineTo(-70,-200);
-        crc2.lineTo(-90,-220);
-        crc2.lineTo(-30,-190);
-        crc2.lineTo(0,-230);
-        crc2.lineTo(0,-200);
-        crc2.lineTo(-5,-150);
-        crc2.lineTo(0,-160);
-        crc2.lineTo(0,-130);
-        crc2.lineTo(-5,-100);
-        crc2.fill();
-        crc2.restore();
-    }
-
-    let cloud: Cloud = new Cloud();
-    console.log(cloud);
-    cloud.draw();
-
-    function drawCloud (): void {
-        console.log("Forrest");
-
-        let numberOfParticles: number = 50; // Anzahl der Partikel in der Wolke
-        let cloudWidth: number = 120; // Breite der Wolke
-        let cloudHeight: number = 40; // Höhe der Wolke
-        let xPosition: number = 40; // Feste X-Position der Wolke
-        let yPosition: number = 50; // Y-Position der Wolke
-        let random = pseudoRandom(42)
     
-        for (let i = 0; i < numberOfParticles; i++) {
-            let x = xPosition + (i * (cloudWidth / numberOfParticles)); // Feste X-Position für jeden Partikel, abhängig von der Wolkenbreite
-            let y = yPosition + (random() * cloudHeight); // Zufällige Y-Position innerhalb der Wolke
-            drawCloudParticle(x, y); // Partikel zeichnen
-        }
-    }
-
-    function drawCloudParticle(x: number, y: number): void {
-        let gradient = crc2.createRadialGradient(x, y, 0, x, y, 15);
-
-        // Farben für den Gradienten festlegen
-        gradient.addColorStop(0, "white"); // Der Innenbereich des Partikels ist undurchsichtig (weiß)
-        gradient.addColorStop(1, "rgba(255, 255, 255, 0)"); // Der äußere Bereich des Partikels wird transparent
-    
-        // Stelle den Gradienten als Füllfarbe für das Partikel ein
-        
-        crc2.save();
-        crc2.beginPath();
-        crc2.arc(x, y, 15, 0, Math.PI * 2); // Kreispartikel zeichnen
-        crc2.fillStyle = gradient; // Gradient für Wolke
-        crc2.fill();
-        crc2.restore();    
-    }
-
     let lake: Lake = new Lake();
     console.log(Lake);
     lake.draw();
@@ -513,8 +460,5 @@ namespace EntenteichClasses {
         crc2.restore();    
     }
   
-    
-
-
 }
 

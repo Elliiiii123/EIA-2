@@ -2,16 +2,17 @@
 var EntenteichClasses;
 (function (EntenteichClasses) {
     class Tree {
-        position = { x: 200, y: 422 };
-        color = "brown";
-        size;
-        constructor() {
+        x; //200
+        y; //440
+        constructor(_x, _y) {
             console.log("Tree Constructor");
+            this.x = _x;
+            this.y = _y;
         }
         draw() {
             console.log("Tree draw");
             EntenteichClasses.crc2.save();
-            EntenteichClasses.crc2.translate(390, 320);
+            EntenteichClasses.crc2.translate(this.x, this.y);
             EntenteichClasses.crc2.fillStyle = "brown";
             EntenteichClasses.crc2.beginPath();
             EntenteichClasses.crc2.moveTo(0, 0);
