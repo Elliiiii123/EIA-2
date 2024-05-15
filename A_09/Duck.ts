@@ -3,20 +3,61 @@ namespace EntenteichClasses {
     export class Duck{
         x:number;
         y:number;
+        xStanding: number;
+        yStanding: number;
+        xTail: number;
+        yTail: number;
+        direction: number;
+        standingDirection: number;
         
         position: Vector;
         color: string;
         size: number;
         type: string;
-        direction: Vector;
         activity: string;
 
-        constructor (){
+        constructor (_x:number, _y:number, _xStanding:number, _yStanding:number, _xTail:number, _yTail:number){
             console.log("Duck Constructor")
+            this.x = _x;
+            this.y = _y;
+            this.xStanding= _xStanding;
+            this.yStanding= _yStanding;
+            this.xTail= _xTail;
+            this.yTail= _yTail;
+            this.direction = this.getRandomDirection();
+            this.standingDirection = this.getRandomDirection();
         }
 
         move ():void{
             console.log("Duck move")
+            this.x += this.direction;
+            this.xStanding -= this.standingDirection;
+            this.xTail -= this.direction* 0.5;;
+
+            if (this.x >= 300 || this.x <= 50) {
+                this.direction *= -1;
+            }
+
+            if (this.xTail >= 300 || this.xTail <= 50) {
+                this.direction *= -1;
+            }
+            
+            if (this.xStanding >= 400) {
+                this.xStanding = 0; // Ente erscheint auf der linken Seite
+            } else if (this.xStanding <= 0) {
+                this.xStanding = 400; // Ente erscheint auf der rechten Seite
+            }
+        }
+
+        getRandomDirection(): number {
+            let rand = Math.random();
+            if (rand < 0.33) {
+                return -1; // Links
+            } else if (rand < 0.66) {
+                return 1; // Rechts
+            } else {
+                return 0; // Keine Bewegung
+            }
         }
 
         draw():void{
@@ -25,6 +66,7 @@ namespace EntenteichClasses {
 
             // Verschieben des Ursprungs des Koordinatensystems zur Position der Ente
             crc2.translate(this.x, this.y);
+            crc2.scale(this.direction, 1);
     
             // Körper der Ente als Ellipse
             let bodyRadiusX = 15; // Horizontaler Radius des Körpers
@@ -69,12 +111,12 @@ namespace EntenteichClasses {
             crc2.restore();
         }
 
-        drawStanding(x: number, y: number, headRotation: number): void {
+        drawStanding(): void {
             crc2.save();
     
             // Verschieben des Ursprungs des Koordinatensystems zur Position der Ente
-            crc2.translate(x, y);
-            crc2.scale(-1, 1);
+            crc2.translate(this.xStanding, this.yStanding);
+            crc2.scale(-this.standingDirection, 1);
         
             // Körper der Ente als Ellipse
             let bodyRadiusX = 15; // Horizontaler Radius des Körpers
@@ -86,7 +128,7 @@ namespace EntenteichClasses {
             crc2.closePath();
         
             // Kopf der Ente als Kreis mit variabler Rotation
-            crc2.rotate(headRotation); // Rotation des Kopfes
+            crc2.rotate(0); // Rotation des Kopfes
             crc2.beginPath();
             crc2.arc(20, -5, 5, 0, Math.PI * 2); // Kopf als Kreis
             crc2.fillStyle = "yellow"; // Gelbe Farbe für den Kopf
@@ -130,11 +172,12 @@ namespace EntenteichClasses {
             crc2.restore();
         }
 
-        drawTail(x: number, y: number): void {
+        drawTail(): void {
             crc2.save();
         
             // Verschieben des Ursprungs des Koordinatensystems zur Position des Entenschwanzes
-            crc2.translate(x, y);
+            crc2.translate(this.xTail, this.yTail);
+            crc2.scale(this.direction, 1);
         
             // Körper der Ente als halbe Ellipse
             let bodyRadiusX = 7; // Horizontaler Radius des Körpers
@@ -155,7 +198,5 @@ namespace EntenteichClasses {
             // Wiederherstellen des ursprünglichen Zustands des Canvas
             crc2.restore();
         }  
-    
-
     }
 }

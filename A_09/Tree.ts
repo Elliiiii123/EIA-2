@@ -1,7 +1,7 @@
 namespace EntenteichClasses {
     export class Tree{
-        x:number;//200
-        y:number;//440
+        x:number;
+        y:number;
     
         constructor (_x:number, _y:number){
             console.log("Tree Constructor");

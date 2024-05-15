@@ -12,6 +12,9 @@ var EntenteichClasses;
         move() {
             console.log("Cloud move");
             this.x += 1;
+            if (this.x > EntenteichClasses.crc2.canvas.width) {
+                this.x = -50;
+            }
         }
         draw() {
             console.log("Cloud draw");

@@ -12,6 +12,10 @@ namespace EntenteichClasses {
         move ():void{
             console.log("Cloud move");
             this.x +=1;
+
+            if (this.x > crc2.canvas.width) {
+                this.x = -50;
+            }
         }
     
         draw():void{

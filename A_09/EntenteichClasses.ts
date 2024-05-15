@@ -7,6 +7,9 @@ namespace EntenteichClasses {
 
     let clouds:Cloud[] = [];
     let trees:Tree[] = [];
+    let ducks:Duck[] = [];
+    let bushes:Bush[] = [];
+    let bees:Bee[] = [];
 
     
     function handleLoad(_event:Event):void{
@@ -16,9 +19,9 @@ namespace EntenteichClasses {
             return;
         crc2 = <CanvasRenderingContext2D>canvas.getContext("2d");
 
-        for (let i:number = 0;i<5;i++){
+        for (let i:number = 0;i<4;i++){
             //neue Wolke wird an zufälliger Position erzeugt
-            let cloud: Cloud = new Cloud(Math.random() * 400, Math.random() * 150);
+            let cloud: Cloud = new Cloud(Math.random() * 200, Math.random() * 150);
             //Wolken werden an des Array angehängt
             clouds.push(cloud);
         }
@@ -28,23 +31,62 @@ namespace EntenteichClasses {
         tree.draw();
         trees.push(tree);
 
+        for (let i:number = 0;i<5;i++){
+            //neue Ente wird an zufälliger Position erzeugt
+            // let duck: Duck = new Duck(70 + Math.random() * 200, 350 + Math.random() * 100);
+            //Enten werden an des Array angehängt
+            let x = 70 + Math.random() * 200;
+            let y = 350 + Math.random() * 100;
+            let xTail = 70 + Math.random() * 200;
+            let yTail = 350 + Math.random() * 100;
+            let xStanding = 200 + Math.random() * 300;
+            let yStanding = 500 + Math.random() * 80;
+            let duck: Duck = new Duck(x, y, xStanding, yStanding, xTail, yTail);
+            ducks.push(duck);
+        }
+
+        let bush: Bush = new Bush(310, 580);
+        console.log(bush);
+        bush.draw();
+        bushes.push(bush);
+
+        for (let i:number = 0;i<8;i++){
+            //neue Wolke wird an zufälliger Position erzeugt
+            let bee: Bee = new Bee(Math.random() * 500, Math.random() * 500, 1, {x:1,y:0});
+            //Wolken werden an des Array angehängt
+            bees.push(bee);
+        }
+
         drawBackground();
         setInterval(animate, 40);
 
-        let duck: Duck = new Duck;
-        console.log (duck)
     }
 
     function animate(): void{
         console.log("animate");
         drawBackground();
-        for (let i:number = 0; i<5; i++){
+        for (let i:number = 0; i<4; i++){
             clouds[i].move();
-            clouds [i].draw();
+            clouds[i].draw();
         }
         for (let i:number = 0; i<1; i++){
             trees [i].draw();
         }
+        for (let i:number = 0; i<5; i++){
+            ducks[i].move();
+            ducks[i].draw();
+            ducks[i].drawStanding();
+            ducks[i].drawTail();
+        }
+        for (let i:number = 0; i<1; i++){
+            bushes [i].draw();
+        }
+        for (let i:number = 0; i<8; i++){
+            bees[i].move();
+            bees[i].draw();
+
+        }
+
     }
 
     function drawBackground():void {
@@ -63,13 +105,8 @@ namespace EntenteichClasses {
         drawForrest();
         drawHouse();
         drawLake();
-        drawDuck(200,400);
-        drawStandingDuck(300, 500,-0);
-        drawDuckTail(170,370);
         drawFlower(200,563, "pink");
         drawFlowers();
-        drawBush();
-
     }
 
     function drawSun():void {
@@ -136,7 +173,7 @@ namespace EntenteichClasses {
         crc2.restore();
     }
     
-    function pseudoRandom(seed: number): () => number {
+    export function pseudoRandom(seed: number): () => number {
         let value = seed;
         return function() {
             value = (value * 9301 + 49297) % 233280;
@@ -213,12 +250,6 @@ namespace EntenteichClasses {
         crc2.restore();
     }
 
-
-    
-    let lake: Lake = new Lake();
-    console.log(Lake);
-    lake.draw();
-
     function drawLake():void{
 
         let centerX = 220; // X-Koordinate des Mittelpunkts des Sees
@@ -232,148 +263,6 @@ namespace EntenteichClasses {
         crc2.closePath();
         crc2.fillStyle = "blue";
         crc2.fill();
-        crc2.restore();
-    }
-
-    function drawDuck(x:number, y:number):void{
-
-        crc2.save();
-
-        // Verschieben des Ursprungs des Koordinatensystems zur Position der Ente
-        crc2.translate(x, y);
-    
-        // Körper der Ente als Ellipse
-        let bodyRadiusX = 15; // Horizontaler Radius des Körpers
-        let bodyRadiusY = 10; // Vertikaler Radius des Körpers
-        crc2.beginPath();
-        crc2.ellipse(0, 0, bodyRadiusX, bodyRadiusY, 0, 0, Math.PI * 2); // Körper als Ellipse
-        crc2.fillStyle = "yellow"; // Gelbe Farbe für den Körper
-        crc2.fill();
-        crc2.closePath();
-    
-        // Kopf der Ente als Kreis
-        crc2.beginPath();
-        crc2.arc(20, -5, 5, 0, Math.PI * 2); // Kopf als Kreis
-        crc2.fillStyle = "yellow"; // Gelbe Farbe für den Kopf
-        crc2.fill();
-        crc2.closePath();
-    
-        // Auge der Ente als Kreis
-        crc2.beginPath();
-        crc2.arc(22, -5, 2, 0, Math.PI * 2); // Auge als Kreis
-        crc2.fillStyle = "black"; // Schwarze Farbe für das Auge
-        crc2.fill();
-        crc2.closePath();
-    
-        // Schnabel der Ente
-        crc2.beginPath();
-        crc2.moveTo(25, -5);
-        crc2.lineTo(30, -3);
-        crc2.lineTo(25, -1);
-        crc2.strokeStyle = "orange"; // Orangefarbener Schnabel
-        crc2.stroke();
-        crc2.closePath();
-    
-        // Linker Flügel der Ente als schmale Ellipse
-        crc2.beginPath();
-        crc2.ellipse(-4, -2, 15, 7, -0.2, 0, Math.PI * 2); // Linker Flügel als Ellipse
-        crc2.fillStyle = "brown"; // Braune Farbe für den Flügel
-        crc2.fill();
-        crc2.closePath();
-    
-        // Wiederherstellen des ursprünglichen Zustands des Canvas
-        crc2.restore();
-    }
-
-    function drawStandingDuck(x: number, y: number, headRotation: number): void {
-        crc2.save();
-
-        // Verschieben des Ursprungs des Koordinatensystems zur Position der Ente
-        crc2.translate(x, y);
-        crc2.scale(-1, 1);
-    
-        // Körper der Ente als Ellipse
-        let bodyRadiusX = 15; // Horizontaler Radius des Körpers
-        let bodyRadiusY = 10; // Vertikaler Radius des Körpers
-        crc2.beginPath();
-        crc2.ellipse(0, 0, bodyRadiusX, bodyRadiusY, 0, 0, Math.PI * 2); // Körper als Ellipse
-        crc2.fillStyle = "yellow"; // Gelbe Farbe für den Körper
-        crc2.fill();
-        crc2.closePath();
-    
-        // Kopf der Ente als Kreis mit variabler Rotation
-        crc2.rotate(headRotation); // Rotation des Kopfes
-        crc2.beginPath();
-        crc2.arc(20, -5, 5, 0, Math.PI * 2); // Kopf als Kreis
-        crc2.fillStyle = "yellow"; // Gelbe Farbe für den Kopf
-        crc2.fill();
-        crc2.closePath();
-    
-        // Auge der Ente als Kreis
-        crc2.beginPath();
-        crc2.arc(22, -5, 2, 0, Math.PI * 2); // Auge als Kreis
-        crc2.fillStyle = "black"; // Schwarze Farbe für das Auge
-        crc2.fill();
-        crc2.closePath();
-    
-        // Schnabel der Ente
-        crc2.beginPath();
-        crc2.moveTo(25, -5);
-        crc2.lineTo(30, -3);
-        crc2.lineTo(25, -1);
-        crc2.strokeStyle = "orange"; // Orangefarbener Schnabel
-        crc2.stroke();
-        crc2.closePath();
-    
-        // Rechter Flügel der Ente als schmale Ellipse
-        crc2.beginPath();
-        crc2.ellipse(-4, -2, 15, 7, -0.2, 0, Math.PI * 2); // Rechter Flügel als Ellipse
-        crc2.fillStyle = "brown"; // Braune Farbe für den Flügel
-        crc2.fill();
-        crc2.closePath();
-    
-        // Beine der Ente 
-        crc2.beginPath();
-        crc2.moveTo(0, 7); // Startpunkt des Beins
-        crc2.lineTo(0, 15); // Obere Linie des Beins
-        crc2.lineTo(-3, 15); // Schräge Linie des Beins
-        crc2.lineTo(-3, 7); // Untere Linie des Beins
-        crc2.strokeStyle = "brown"; // Braune Farbe für die Beine
-        crc2.stroke();
-        crc2.closePath();
-    
-        // Wiederherstellen des ursprünglichen Zustands des Canvas
-        crc2.restore();
-    
-    }
-
-    let duck: Duck = new Duck();
-    console.log(Duck);
-    duck.draw();
-
-    function drawDuckTail(x: number, y: number): void {
-        crc2.save();
-    
-        // Verschieben des Ursprungs des Koordinatensystems zur Position des Entenschwanzes
-        crc2.translate(x, y);
-    
-        // Körper der Ente als halbe Ellipse
-        let bodyRadiusX = 7; // Horizontaler Radius des Körpers
-        let bodyRadiusY = 10; // Vertikaler Radius des Körpers
-        crc2.beginPath();
-        crc2.ellipse(0, 0, bodyRadiusX, bodyRadiusY, Math.PI, 0, Math.PI); // Körper als halbe Ellipse
-        crc2.fillStyle = "yellow"; // Gelbe Farbe für den Körper
-        crc2.fill();
-        crc2.closePath();
-    
-        // Linker Flügel der Ente als halbe Ellipse
-        crc2.beginPath();
-        crc2.ellipse(-3, 0, 6, 14, 0,Math.PI, 0); // Linker Flügel als halbe Ellipse
-        crc2.fillStyle = "brown"; // Braune Farbe für den Flügel
-        crc2.fill();
-        crc2.closePath();
-    
-        // Wiederherstellen des ursprünglichen Zustands des Canvas
         crc2.restore();
     }
 
@@ -432,33 +321,5 @@ namespace EntenteichClasses {
             drawFlower(randomX, randomY, randomColor);
         }
     }
-
-    function drawBush (): void {
-        console.log("Forrest");
-
-        let numberOfParticles: number = 50; // Anzahl der Partikel in der Wolke
-        let cloudWidth: number = 80; // Breite der Wolke
-        let cloudHeight: number = 70; // Höhe der Wolke
-        let xPosition: number = 310; // Feste X-Position der Wolke
-        let yPosition: number = 580; // Y-Position der Wolke
-        let random = pseudoRandom(42)
-    
-        for (let i = 0; i < numberOfParticles; i++) {
-            let x = xPosition + (i * (cloudWidth / numberOfParticles)); // Feste X-Position für jeden Partikel, abhängig von der Wolkenbreite
-            let y = yPosition + (random() * cloudHeight); // Zufällige Y-Position innerhalb der Wolke
-            drawBushParticle(x, y); // Partikel zeichnen
-        }
-    }
-
-    function drawBushParticle(x: number, y: number): void {
-  
-        crc2.save();
-        crc2.beginPath();
-        crc2.arc(x, y, 15, 0, Math.PI * 2); // Kreispartikel zeichnen
-        crc2.fillStyle = "#006400"; 
-        crc2.fill();
-        crc2.restore();    
-    }
-  
 }
 

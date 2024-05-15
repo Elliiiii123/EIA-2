@@ -5,15 +5,18 @@ var EntenteichClasses;
     window.addEventListener("load", handleLoad);
     let clouds = [];
     let trees = [];
+    let ducks = [];
+    let bushes = [];
+    let bees = [];
     function handleLoad(_event) {
         //query selector um auf den canvas zuzugreifen und überprüfen ob er da ist
         let canvas = document.querySelector("canvas");
         if (!canvas)
             return;
         EntenteichClasses.crc2 = canvas.getContext("2d");
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 4; i++) {
             //neue Wolke wird an zufälliger Position erzeugt
-            let cloud = new EntenteichClasses.Cloud(Math.random() * 400, Math.random() * 150);
+            let cloud = new EntenteichClasses.Cloud(Math.random() * 200, Math.random() * 150);
             //Wolken werden an des Array angehängt
             clouds.push(cloud);
         }
@@ -21,20 +24,54 @@ var EntenteichClasses;
         console.log(tree);
         tree.draw();
         trees.push(tree);
+        for (let i = 0; i < 5; i++) {
+            //neue Ente wird an zufälliger Position erzeugt
+            // let duck: Duck = new Duck(70 + Math.random() * 200, 350 + Math.random() * 100);
+            //Enten werden an des Array angehängt
+            let x = 70 + Math.random() * 200;
+            let y = 350 + Math.random() * 100;
+            let xTail = 70 + Math.random() * 200;
+            let yTail = 350 + Math.random() * 100;
+            let xStanding = 200 + Math.random() * 300;
+            let yStanding = 500 + Math.random() * 80;
+            let duck = new EntenteichClasses.Duck(x, y, xStanding, yStanding, xTail, yTail);
+            ducks.push(duck);
+        }
+        let bush = new EntenteichClasses.Bush(310, 580);
+        console.log(bush);
+        bush.draw();
+        bushes.push(bush);
+        for (let i = 0; i < 8; i++) {
+            //neue Wolke wird an zufälliger Position erzeugt
+            let bee = new EntenteichClasses.Bee(Math.random() * 500, Math.random() * 500, 1, { x: 1, y: 0 });
+            //Wolken werden an des Array angehängt
+            bees.push(bee);
+        }
         drawBackground();
         setInterval(animate, 40);
-        let duck = new EntenteichClasses.Duck;
-        console.log(duck);
     }
     function animate() {
         console.log("animate");
         drawBackground();
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 4; i++) {
             clouds[i].move();
             clouds[i].draw();
         }
         for (let i = 0; i < 1; i++) {
             trees[i].draw();
+        }
+        for (let i = 0; i < 5; i++) {
+            ducks[i].move();
+            ducks[i].draw();
+            ducks[i].drawStanding();
+            ducks[i].drawTail();
+        }
+        for (let i = 0; i < 1; i++) {
+            bushes[i].draw();
+        }
+        for (let i = 0; i < 8; i++) {
+            bees[i].move();
+            bees[i].draw();
         }
     }
     function drawBackground() {
@@ -50,12 +87,8 @@ var EntenteichClasses;
         drawForrest();
         drawHouse();
         drawLake();
-        drawDuck(200, 400);
-        drawStandingDuck(300, 500, -0);
-        drawDuckTail(170, 370);
         drawFlower(200, 563, "pink");
         drawFlowers();
-        drawBush();
     }
     function drawSun() {
         //Zentrum und Radius des Gradienten für die Sonne
@@ -121,6 +154,7 @@ var EntenteichClasses;
             return value / 233280;
         };
     }
+    EntenteichClasses.pseudoRandom = pseudoRandom;
     function drawForrest() {
         console.log("Forrest");
         let numberOfParticles = 170; // Anzahl der Partikel im Büschel
@@ -183,9 +217,6 @@ var EntenteichClasses;
         EntenteichClasses.crc2.stroke();
         EntenteichClasses.crc2.restore();
     }
-    let lake = new EntenteichClasses.Lake();
-    console.log(EntenteichClasses.Lake);
-    lake.draw();
     function drawLake() {
         let centerX = 220; // X-Koordinate des Mittelpunkts des Sees
         let centerY = 390; // Y-Koordinate des Mittelpunkts des Sees
@@ -197,123 +228,6 @@ var EntenteichClasses;
         EntenteichClasses.crc2.closePath();
         EntenteichClasses.crc2.fillStyle = "blue";
         EntenteichClasses.crc2.fill();
-        EntenteichClasses.crc2.restore();
-    }
-    function drawDuck(x, y) {
-        EntenteichClasses.crc2.save();
-        // Verschieben des Ursprungs des Koordinatensystems zur Position der Ente
-        EntenteichClasses.crc2.translate(x, y);
-        // Körper der Ente als Ellipse
-        let bodyRadiusX = 15; // Horizontaler Radius des Körpers
-        let bodyRadiusY = 10; // Vertikaler Radius des Körpers
-        EntenteichClasses.crc2.beginPath();
-        EntenteichClasses.crc2.ellipse(0, 0, bodyRadiusX, bodyRadiusY, 0, 0, Math.PI * 2); // Körper als Ellipse
-        EntenteichClasses.crc2.fillStyle = "yellow"; // Gelbe Farbe für den Körper
-        EntenteichClasses.crc2.fill();
-        EntenteichClasses.crc2.closePath();
-        // Kopf der Ente als Kreis
-        EntenteichClasses.crc2.beginPath();
-        EntenteichClasses.crc2.arc(20, -5, 5, 0, Math.PI * 2); // Kopf als Kreis
-        EntenteichClasses.crc2.fillStyle = "yellow"; // Gelbe Farbe für den Kopf
-        EntenteichClasses.crc2.fill();
-        EntenteichClasses.crc2.closePath();
-        // Auge der Ente als Kreis
-        EntenteichClasses.crc2.beginPath();
-        EntenteichClasses.crc2.arc(22, -5, 2, 0, Math.PI * 2); // Auge als Kreis
-        EntenteichClasses.crc2.fillStyle = "black"; // Schwarze Farbe für das Auge
-        EntenteichClasses.crc2.fill();
-        EntenteichClasses.crc2.closePath();
-        // Schnabel der Ente
-        EntenteichClasses.crc2.beginPath();
-        EntenteichClasses.crc2.moveTo(25, -5);
-        EntenteichClasses.crc2.lineTo(30, -3);
-        EntenteichClasses.crc2.lineTo(25, -1);
-        EntenteichClasses.crc2.strokeStyle = "orange"; // Orangefarbener Schnabel
-        EntenteichClasses.crc2.stroke();
-        EntenteichClasses.crc2.closePath();
-        // Linker Flügel der Ente als schmale Ellipse
-        EntenteichClasses.crc2.beginPath();
-        EntenteichClasses.crc2.ellipse(-4, -2, 15, 7, -0.2, 0, Math.PI * 2); // Linker Flügel als Ellipse
-        EntenteichClasses.crc2.fillStyle = "brown"; // Braune Farbe für den Flügel
-        EntenteichClasses.crc2.fill();
-        EntenteichClasses.crc2.closePath();
-        // Wiederherstellen des ursprünglichen Zustands des Canvas
-        EntenteichClasses.crc2.restore();
-    }
-    function drawStandingDuck(x, y, headRotation) {
-        EntenteichClasses.crc2.save();
-        // Verschieben des Ursprungs des Koordinatensystems zur Position der Ente
-        EntenteichClasses.crc2.translate(x, y);
-        EntenteichClasses.crc2.scale(-1, 1);
-        // Körper der Ente als Ellipse
-        let bodyRadiusX = 15; // Horizontaler Radius des Körpers
-        let bodyRadiusY = 10; // Vertikaler Radius des Körpers
-        EntenteichClasses.crc2.beginPath();
-        EntenteichClasses.crc2.ellipse(0, 0, bodyRadiusX, bodyRadiusY, 0, 0, Math.PI * 2); // Körper als Ellipse
-        EntenteichClasses.crc2.fillStyle = "yellow"; // Gelbe Farbe für den Körper
-        EntenteichClasses.crc2.fill();
-        EntenteichClasses.crc2.closePath();
-        // Kopf der Ente als Kreis mit variabler Rotation
-        EntenteichClasses.crc2.rotate(headRotation); // Rotation des Kopfes
-        EntenteichClasses.crc2.beginPath();
-        EntenteichClasses.crc2.arc(20, -5, 5, 0, Math.PI * 2); // Kopf als Kreis
-        EntenteichClasses.crc2.fillStyle = "yellow"; // Gelbe Farbe für den Kopf
-        EntenteichClasses.crc2.fill();
-        EntenteichClasses.crc2.closePath();
-        // Auge der Ente als Kreis
-        EntenteichClasses.crc2.beginPath();
-        EntenteichClasses.crc2.arc(22, -5, 2, 0, Math.PI * 2); // Auge als Kreis
-        EntenteichClasses.crc2.fillStyle = "black"; // Schwarze Farbe für das Auge
-        EntenteichClasses.crc2.fill();
-        EntenteichClasses.crc2.closePath();
-        // Schnabel der Ente
-        EntenteichClasses.crc2.beginPath();
-        EntenteichClasses.crc2.moveTo(25, -5);
-        EntenteichClasses.crc2.lineTo(30, -3);
-        EntenteichClasses.crc2.lineTo(25, -1);
-        EntenteichClasses.crc2.strokeStyle = "orange"; // Orangefarbener Schnabel
-        EntenteichClasses.crc2.stroke();
-        EntenteichClasses.crc2.closePath();
-        // Rechter Flügel der Ente als schmale Ellipse
-        EntenteichClasses.crc2.beginPath();
-        EntenteichClasses.crc2.ellipse(-4, -2, 15, 7, -0.2, 0, Math.PI * 2); // Rechter Flügel als Ellipse
-        EntenteichClasses.crc2.fillStyle = "brown"; // Braune Farbe für den Flügel
-        EntenteichClasses.crc2.fill();
-        EntenteichClasses.crc2.closePath();
-        // Beine der Ente 
-        EntenteichClasses.crc2.beginPath();
-        EntenteichClasses.crc2.moveTo(0, 7); // Startpunkt des Beins
-        EntenteichClasses.crc2.lineTo(0, 15); // Obere Linie des Beins
-        EntenteichClasses.crc2.lineTo(-3, 15); // Schräge Linie des Beins
-        EntenteichClasses.crc2.lineTo(-3, 7); // Untere Linie des Beins
-        EntenteichClasses.crc2.strokeStyle = "brown"; // Braune Farbe für die Beine
-        EntenteichClasses.crc2.stroke();
-        EntenteichClasses.crc2.closePath();
-        // Wiederherstellen des ursprünglichen Zustands des Canvas
-        EntenteichClasses.crc2.restore();
-    }
-    let duck = new EntenteichClasses.Duck();
-    console.log(EntenteichClasses.Duck);
-    duck.draw();
-    function drawDuckTail(x, y) {
-        EntenteichClasses.crc2.save();
-        // Verschieben des Ursprungs des Koordinatensystems zur Position des Entenschwanzes
-        EntenteichClasses.crc2.translate(x, y);
-        // Körper der Ente als halbe Ellipse
-        let bodyRadiusX = 7; // Horizontaler Radius des Körpers
-        let bodyRadiusY = 10; // Vertikaler Radius des Körpers
-        EntenteichClasses.crc2.beginPath();
-        EntenteichClasses.crc2.ellipse(0, 0, bodyRadiusX, bodyRadiusY, Math.PI, 0, Math.PI); // Körper als halbe Ellipse
-        EntenteichClasses.crc2.fillStyle = "yellow"; // Gelbe Farbe für den Körper
-        EntenteichClasses.crc2.fill();
-        EntenteichClasses.crc2.closePath();
-        // Linker Flügel der Ente als halbe Ellipse
-        EntenteichClasses.crc2.beginPath();
-        EntenteichClasses.crc2.ellipse(-3, 0, 6, 14, 0, Math.PI, 0); // Linker Flügel als halbe Ellipse
-        EntenteichClasses.crc2.fillStyle = "brown"; // Braune Farbe für den Flügel
-        EntenteichClasses.crc2.fill();
-        EntenteichClasses.crc2.closePath();
-        // Wiederherstellen des ursprünglichen Zustands des Canvas
         EntenteichClasses.crc2.restore();
     }
     function drawFlower(x, y, color) {
@@ -361,28 +275,6 @@ var EntenteichClasses;
             // Blume an der zufälligen Position zeichnen
             drawFlower(randomX, randomY, randomColor);
         }
-    }
-    function drawBush() {
-        console.log("Forrest");
-        let numberOfParticles = 50; // Anzahl der Partikel in der Wolke
-        let cloudWidth = 80; // Breite der Wolke
-        let cloudHeight = 70; // Höhe der Wolke
-        let xPosition = 310; // Feste X-Position der Wolke
-        let yPosition = 580; // Y-Position der Wolke
-        let random = pseudoRandom(42);
-        for (let i = 0; i < numberOfParticles; i++) {
-            let x = xPosition + (i * (cloudWidth / numberOfParticles)); // Feste X-Position für jeden Partikel, abhängig von der Wolkenbreite
-            let y = yPosition + (random() * cloudHeight); // Zufällige Y-Position innerhalb der Wolke
-            drawBushParticle(x, y); // Partikel zeichnen
-        }
-    }
-    function drawBushParticle(x, y) {
-        EntenteichClasses.crc2.save();
-        EntenteichClasses.crc2.beginPath();
-        EntenteichClasses.crc2.arc(x, y, 15, 0, Math.PI * 2); // Kreispartikel zeichnen
-        EntenteichClasses.crc2.fillStyle = "#006400";
-        EntenteichClasses.crc2.fill();
-        EntenteichClasses.crc2.restore();
     }
 })(EntenteichClasses || (EntenteichClasses = {}));
 //# sourceMappingURL=EntenteichClasses.js.map

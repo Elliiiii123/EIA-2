@@ -2,8 +2,8 @@
 var EntenteichClasses;
 (function (EntenteichClasses) {
     class Tree {
-        x; //200
-        y; //440
+        x;
+        y;
         constructor(_x, _y) {
             console.log("Tree Constructor");
             this.x = _x;
