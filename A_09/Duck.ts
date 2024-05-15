@@ -9,14 +9,10 @@ namespace EntenteichClasses {
         yTail: number;
         direction: number;
         standingDirection: number;
-        
-        position: Vector;
         color: string;
         size: number;
-        type: string;
-        activity: string;
 
-        constructor (_x:number, _y:number, _xStanding:number, _yStanding:number, _xTail:number, _yTail:number){
+        constructor (_x:number, _y:number, _xStanding:number, _yStanding:number, _xTail:number, _yTail:number, _color: string){
             console.log("Duck Constructor")
             this.x = _x;
             this.y = _y;
@@ -26,6 +22,12 @@ namespace EntenteichClasses {
             this.yTail= _yTail;
             this.direction = this.getRandomDirection();
             this.standingDirection = this.getRandomDirection();
+            this.color = _color;
+            if (_color === "yellow" || _color === "gold") {
+                this.color = _color;
+            } else {
+                this.color = "brown"; // Wenn nicht, ist die Ente braun
+            }
         }
 
         move ():void{
@@ -41,7 +43,7 @@ namespace EntenteichClasses {
             if (this.xTail >= 300 || this.xTail <= 50) {
                 this.direction *= -1;
             }
-            
+
             if (this.xStanding >= 400) {
                 this.xStanding = 0; // Ente erscheint auf der linken Seite
             } else if (this.xStanding <= 0) {
@@ -73,14 +75,22 @@ namespace EntenteichClasses {
             let bodyRadiusY = 10; // Vertikaler Radius des Körpers
             crc2.beginPath();
             crc2.ellipse(0, 0, bodyRadiusX, bodyRadiusY, 0, 0, Math.PI * 2); // Körper als Ellipse
-            crc2.fillStyle = "yellow"; // Gelbe Farbe für den Körper
+            if (this.color === "brown") {
+                crc2.fillStyle = "brown";
+            } else {
+                crc2.fillStyle = "yellow";
+            }
             crc2.fill();
             crc2.closePath();
     
             // Kopf der Ente als Kreis
             crc2.beginPath();
             crc2.arc(20, -5, 5, 0, Math.PI * 2); // Kopf als Kreis
-            crc2.fillStyle = "yellow"; // Gelbe Farbe für den Kopf
+            if (this.color === "brown") {
+                crc2.fillStyle = "brown";
+            } else {
+                crc2.fillStyle = "yellow";
+            }
             crc2.fill();
             crc2.closePath();
     
@@ -103,7 +113,11 @@ namespace EntenteichClasses {
             // Linker Flügel der Ente als schmale Ellipse
             crc2.beginPath();
             crc2.ellipse(-4, -2, 15, 7, -0.2, 0, Math.PI * 2); // Linker Flügel als Ellipse
-            crc2.fillStyle = "brown"; // Braune Farbe für den Flügel
+            if (this.color === "brown") {
+                crc2.fillStyle = "lightblue";
+            } else {
+                crc2.fillStyle = "brown";
+            }
             crc2.fill();
             crc2.closePath();
     
@@ -184,7 +198,7 @@ namespace EntenteichClasses {
             let bodyRadiusY = 10; // Vertikaler Radius des Körpers
             crc2.beginPath();
             crc2.ellipse(0, 0, bodyRadiusX, bodyRadiusY, Math.PI, 0, Math.PI); // Körper als halbe Ellipse
-            crc2.fillStyle = "yellow"; // Gelbe Farbe für den Körper
+            crc2.fillStyle = "yellow";
             crc2.fill();
             crc2.closePath();
         

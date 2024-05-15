@@ -31,18 +31,17 @@ namespace EntenteichClasses {
         tree.draw();
         trees.push(tree);
 
-        for (let i:number = 0;i<5;i++){
-            //neue Ente wird an zufälliger Position erzeugt
-            // let duck: Duck = new Duck(70 + Math.random() * 200, 350 + Math.random() * 100);
-            //Enten werden an des Array angehängt
+        for (let i:number = 0;i<7;i++){
             let x = 70 + Math.random() * 200;
             let y = 350 + Math.random() * 100;
             let xTail = 70 + Math.random() * 200;
             let yTail = 350 + Math.random() * 100;
             let xStanding = 200 + Math.random() * 300;
             let yStanding = 500 + Math.random() * 80;
-            let duck: Duck = new Duck(x, y, xStanding, yStanding, xTail, yTail);
+            let duck: Duck = new Duck(x, y, xStanding, yStanding, xTail, yTail, "brown");
+            let duckYellow: Duck = new Duck(x, y, xStanding, yStanding, xTail, yTail, "yellow");
             ducks.push(duck);
+            ducks.push(duckYellow);
         }
 
         let bush: Bush = new Bush(310, 580);
@@ -51,9 +50,11 @@ namespace EntenteichClasses {
         bushes.push(bush);
 
         for (let i:number = 0;i<8;i++){
-            //neue Wolke wird an zufälliger Position erzeugt
-            let bee: Bee = new Bee(Math.random() * 500, Math.random() * 500, 1, {x:1,y:0});
-            //Wolken werden an des Array angehängt
+            //neue Biene wird an zufälliger Position erzeugt
+            let randomX = Math.random() * 2 - 1; // Zufällige Zahl zwischen -1 und 1 für die x-Richtung
+            let randomY = Math.random() * 2 - 1; // Zufällige Zahl zwischen -1 und 1 für die y-Richtung
+            let bee: Bee = new Bee(Math.random() * 500, Math.random() * 500, 0.5, new Vector(randomX, randomY));
+            //Bienen werden an des Array angehängt
             bees.push(bee);
         }
 
@@ -72,7 +73,7 @@ namespace EntenteichClasses {
         for (let i:number = 0; i<1; i++){
             trees [i].draw();
         }
-        for (let i:number = 0; i<5; i++){
+        for (let i:number = 0; i<7; i++){
             ducks[i].move();
             ducks[i].draw();
             ducks[i].drawStanding();
@@ -81,10 +82,9 @@ namespace EntenteichClasses {
         for (let i:number = 0; i<1; i++){
             bushes [i].draw();
         }
-        for (let i:number = 0; i<8; i++){
+        for (let i:number = 0; i<bees.length; i++){
             bees[i].move();
             bees[i].draw();
-
         }
 
     }
