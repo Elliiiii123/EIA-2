@@ -5,12 +5,12 @@ var EntenteichClasses;
         x;
         y;
         constructor(_x, _y) {
-            console.log("Tree Constructor");
+            //console.log("Tree Constructor");
             this.x = _x;
             this.y = _y;
         }
         draw() {
-            console.log("Tree draw");
+            //console.log("Tree draw");
             EntenteichClasses.crc2.save();
             EntenteichClasses.crc2.translate(this.x, this.y);
             EntenteichClasses.crc2.fillStyle = "brown";

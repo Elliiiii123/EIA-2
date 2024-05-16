@@ -21,7 +21,6 @@ namespace EntenteichClasses {
             }
         
         
-        
             // Bewegung basierend auf der Richtung
             this.x += this.direction.x;
             this.y += this.direction.y;

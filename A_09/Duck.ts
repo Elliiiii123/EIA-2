@@ -13,7 +13,7 @@ namespace EntenteichClasses {
         size: number;
 
         constructor (_x:number, _y:number, _xStanding:number, _yStanding:number, _xTail:number, _yTail:number, _color: string){
-            console.log("Duck Constructor")
+            //console.log("Duck Constructor")
             this.x = _x;
             this.y = _y;
             this.xStanding= _xStanding;
@@ -31,7 +31,7 @@ namespace EntenteichClasses {
         }
 
         move ():void{
-            console.log("Duck move")
+            //console.log("Duck move")
             this.x += this.direction;
             this.xStanding -= this.standingDirection;
             this.xTail -= this.direction* 0.5;;
@@ -63,7 +63,7 @@ namespace EntenteichClasses {
         }
 
         draw():void{
-            console.log("Duck draw")
+            //console.log("Duck draw")
             crc2.save();
 
             // Verschieben des Ursprungs des Koordinatensystems zur Position der Ente

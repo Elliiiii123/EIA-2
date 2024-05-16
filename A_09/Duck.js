@@ -13,7 +13,7 @@ var EntenteichClasses;
         color;
         size;
         constructor(_x, _y, _xStanding, _yStanding, _xTail, _yTail, _color) {
-            console.log("Duck Constructor");
+            //console.log("Duck Constructor")
             this.x = _x;
             this.y = _y;
             this.xStanding = _xStanding;
@@ -31,7 +31,7 @@ var EntenteichClasses;
             }
         }
         move() {
-            console.log("Duck move");
+            //console.log("Duck move")
             this.x += this.direction;
             this.xStanding -= this.standingDirection;
             this.xTail -= this.direction * 0.5;
@@ -62,7 +62,7 @@ var EntenteichClasses;
             }
         }
         draw() {
-            console.log("Duck draw");
+            //console.log("Duck draw")
             EntenteichClasses.crc2.save();
             // Verschieben des Ursprungs des Koordinatensystems zur Position der Ente
             EntenteichClasses.crc2.translate(this.x, this.y);

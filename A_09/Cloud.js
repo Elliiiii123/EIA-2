@@ -5,19 +5,19 @@ var EntenteichClasses;
         x;
         y;
         constructor(_x, _y) {
-            console.log("Cloud Constructor");
+            //console.log("Cloud Constructor")
             this.x = _x;
             this.y = _y;
         }
         move() {
-            console.log("Cloud move");
+            //console.log("Cloud move");
             this.x += 1;
             if (this.x > EntenteichClasses.crc2.canvas.width) {
                 this.x = -50;
             }
         }
         draw() {
-            console.log("Cloud draw");
+            //console.log("Cloud draw")
             let numberOfParticles = 50; // Anzahl der Partikel in der Wolke
             let cloudWidth = 120; // Breite der Wolke
             let cloudHeight = 40; // Höhe der Wolke

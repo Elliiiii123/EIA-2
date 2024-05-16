@@ -4,13 +4,13 @@ namespace EntenteichClasses {
         y:number;
     
         constructor (_x:number, _y:number){
-            console.log("Tree Constructor");
+            //console.log("Tree Constructor");
             this.x = _x;
             this.y = _y;
         }
 
         draw():void{
-            console.log("Tree draw");
+            //console.log("Tree draw");
 
             crc2.save();
             crc2.translate(this.x, this.y);

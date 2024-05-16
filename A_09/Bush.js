@@ -4,16 +4,13 @@ var EntenteichClasses;
     class Bush {
         x;
         y;
-        position;
-        color;
-        size;
         constructor(_x, _y) {
-            console.log("Bush Constructor");
+            //console.log("Bush Constructor")
             this.x = _x;
             this.y = _y;
         }
         draw() {
-            console.log("Bush draw");
+            //console.log("Bush draw")
             let numberOfParticles = 50; // Anzahl der Partikel in der Wolke
             let cloudWidth = 80; // Breite der Wolke
             let cloudHeight = 70; // Höhe der Wolke

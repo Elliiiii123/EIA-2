@@ -2,18 +2,15 @@ namespace EntenteichClasses {
     export class Bush{
         x:number;
         y:number;
-        position: Vector;
-        color: string;
-        size: Vector;
     
         constructor (_x:number, _y:number){
-            console.log("Bush Constructor")
+            //console.log("Bush Constructor")
             this.x = _x;
             this.y = _y;
         }
     
         draw():void{
-            console.log("Bush draw")
+            //console.log("Bush draw")
             let numberOfParticles: number = 50; // Anzahl der Partikel in der Wolke
             let cloudWidth: number = 80; // Breite der Wolke
             let cloudHeight: number = 70; // Höhe der Wolke

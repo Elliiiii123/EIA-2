@@ -4,13 +4,13 @@ namespace EntenteichClasses {
         y:number;
     
         constructor (_x:number, _y:number){
-            console.log("Cloud Constructor")
+            //console.log("Cloud Constructor")
             this.x = _x;
             this.y = _y;
         }
     
         move ():void{
-            console.log("Cloud move");
+            //console.log("Cloud move");
             this.x +=1;
 
             if (this.x > crc2.canvas.width) {
@@ -19,7 +19,7 @@ namespace EntenteichClasses {
         }
     
         draw():void{
-            console.log("Cloud draw")
+            //console.log("Cloud draw")
             let numberOfParticles: number = 50; // Anzahl der Partikel in der Wolke
             let cloudWidth: number = 120; // Breite der Wolke
             let cloudHeight: number = 40; // Höhe der Wolke

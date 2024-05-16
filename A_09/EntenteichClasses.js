@@ -8,6 +8,7 @@ var EntenteichClasses;
     let ducks = [];
     let bushes = [];
     let bees = [];
+    let herons = [];
     function handleLoad(_event) {
         //query selector um auf den canvas zuzugreifen und überprüfen ob er da ist
         let canvas = document.querySelector("canvas");
@@ -27,7 +28,7 @@ var EntenteichClasses;
         for (let i = 0; i < 7; i++) {
             let x = 70 + Math.random() * 200;
             let y = 350 + Math.random() * 100;
-            let xTail = 70 + Math.random() * 200;
+            let xTail = 70 + Math.random() * 70;
             let yTail = 350 + Math.random() * 100;
             let xStanding = 200 + Math.random() * 300;
             let yStanding = 500 + Math.random() * 80;
@@ -35,6 +36,17 @@ var EntenteichClasses;
             let duckYellow = new EntenteichClasses.Duck(x, y, xStanding, yStanding, xTail, yTail, "yellow");
             ducks.push(duck);
             ducks.push(duckYellow);
+        }
+        for (let i = 0; i < 4; i++) {
+            let randomX = Math.random() * 2 - 1; // Zufällige Zahl zwischen -1 und 1 für die x-Richtung
+            let randomY = 450 + Math.random() * 200; // Zufällige y-Position zwischen 400 und 600
+            let xFlying = 70 + Math.random() * 200;
+            let yFlying = 350 + Math.random() * 100;
+            let heron = new EntenteichClasses.Heron(Math.random() * 200, randomY, xFlying, yFlying, 0.5, new EntenteichClasses.Vector(randomX, 0));
+            // Kranich nur zum Array hinzufügen, wenn y-Position zwischen 400 und 600 liegt
+            if (randomY >= 400 && randomY <= 600) {
+                herons.push(heron);
+            }
         }
         let bush = new EntenteichClasses.Bush(310, 580);
         console.log(bush);
@@ -74,9 +86,14 @@ var EntenteichClasses;
             bees[i].move();
             bees[i].draw();
         }
+        for (let i = 0; i < herons.length; i++) {
+            herons[i].move();
+            herons[i].draw();
+            herons[i].drawFlying();
+        }
     }
     function drawBackground() {
-        console.log("Background");
+        //console.log("Background");
         let gradient = EntenteichClasses.crc2.createLinearGradient(0, 0, 0, EntenteichClasses.crc2.canvas.height);
         gradient.addColorStop(0.1, "#2980b9");
         gradient.addColorStop(0.27, "orangered"); // Adjusted the position to 0.4 to match the desired position
@@ -112,7 +129,7 @@ var EntenteichClasses;
         EntenteichClasses.crc2.beginPath();
     }
     function drawMountain() {
-        console.log("Mountain");
+        //console.log("Mountain");
         let color = "#aaaaaa";
         EntenteichClasses.crc2.save();
         EntenteichClasses.crc2.beginPath();
@@ -157,7 +174,7 @@ var EntenteichClasses;
     }
     EntenteichClasses.pseudoRandom = pseudoRandom;
     function drawForrest() {
-        console.log("Forrest");
+        //console.log("Forrest");
         let numberOfParticles = 170; // Anzahl der Partikel im Büschel
         let forrestHeight = 20; // Höhe des Büschels
         let yPosition = 270; // Y-Position der Horizontlinie
@@ -177,7 +194,7 @@ var EntenteichClasses;
         EntenteichClasses.crc2.restore();
     }
     function drawHouse() {
-        console.log("House");
+        //console.log("House")
         EntenteichClasses.crc2.save();
         EntenteichClasses.crc2.beginPath();
         EntenteichClasses.crc2.translate(10, 340);
