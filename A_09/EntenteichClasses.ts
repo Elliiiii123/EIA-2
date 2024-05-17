@@ -33,12 +33,12 @@ namespace EntenteichClasses {
         trees.push(tree);
 
         for (let i:number = 0;i<7;i++){
-            let x = 70 + Math.random() * 200;
-            let y = 350 + Math.random() * 100;
+            let x = 100 + Math.random() * 200;
+            let y = 340 + Math.random() * 70;
             let xTail = 70 + Math.random() * 70;
             let yTail = 350 + Math.random() * 100;
             let xStanding = 200 + Math.random() * 300;
-            let yStanding = 500 + Math.random() * 80;
+            let yStanding = 450 + Math.random() * 80;
             let duck: Duck = new Duck(x, y, xStanding, yStanding, xTail, yTail, "brown");
             let duckYellow: Duck = new Duck(x, y, xStanding, yStanding, xTail, yTail, "yellow");
             ducks.push(duck);
