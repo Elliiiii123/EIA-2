@@ -11,6 +11,11 @@ namespace EntenteichClasses {
     let bushes:Bush[] = [];
     let bees:Bee[] = [];
     let herons:Heron[] = [];
+    //Let drawables: Drawable[] = [];
+    //Drawables.push (newBush());
+    //drawables.push(newTree());
+    // for (let d of drawables)
+    // d.draw
 
     
     function handleLoad(_event:Event):void{
