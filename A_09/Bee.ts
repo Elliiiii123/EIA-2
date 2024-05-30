@@ -1,16 +1,9 @@
 namespace EntenteichClasses {
     
-    export class Bee {
-        x: number;
-        y: number;
-        size: number;
-        direction: Vector;
+    export class Bee extends Moveable {
 
         constructor(_x: number, _y: number, _size: number, _direction: Vector) {
-            this.x = _x;
-            this.y = _y;
-            this.size = _size;
-            this.direction = _direction;
+            super(_x, _y, _size, _direction, "yellow"); // Bienen sind standardmäßig gelb
         }
 
         move(): void {

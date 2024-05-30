@@ -1,16 +1,9 @@
 "use strict";
 var EntenteichClasses;
 (function (EntenteichClasses) {
-    class Bee {
-        x;
-        y;
-        size;
-        direction;
+    class Bee extends EntenteichClasses.Moveable {
         constructor(_x, _y, _size, _direction) {
-            this.x = _x;
-            this.y = _y;
-            this.size = _size;
-            this.direction = _direction;
+            super(_x, _y, _size, _direction, "yellow"); // Bienen sind standardmäßig gelb
         }
         move() {
             let randomX = (Math.random() * 10 - 1) * 10; // Zufällige Zahl zwischen -1 und 1 für die x-Richtung

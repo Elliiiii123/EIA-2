@@ -1,13 +1,10 @@
 "use strict";
 var EntenteichClasses;
 (function (EntenteichClasses) {
-    class Tree {
-        x;
-        y;
+    class Tree extends EntenteichClasses.Drawable {
         constructor(_x, _y) {
             //console.log("Tree Constructor");
-            this.x = _x;
-            this.y = _y;
+            super(_x, _y);
         }
         draw() {
             //console.log("Tree draw");

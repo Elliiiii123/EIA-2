@@ -1,12 +1,9 @@
 namespace EntenteichClasses {
-    export class Tree{
-        x:number;
-        y:number;
+    export class Tree extends Drawable{
     
         constructor (_x:number, _y:number){
             //console.log("Tree Constructor");
-            this.x = _x;
-            this.y = _y;
+            super(_x,_y)
         }
 
         draw():void{

@@ -6,12 +6,10 @@ namespace EntenteichClasses {
     export let crc2: CanvasRenderingContext2D;
 
     let clouds:Cloud[] = [];
-    let trees:Tree[] = [];
     let ducks:Duck[] = [];
-    let bushes:Bush[] = [];
-    let bees:Bee[] = [];
     let herons:Heron[] = [];
-    //Let drawables: Drawable[] = [];
+    let drawables: Drawable[] = [];
+    let moveables: Moveable[] = [];
     //Drawables.push (newBush());
     //drawables.push(newTree());
     // for (let d of drawables)
@@ -35,7 +33,7 @@ namespace EntenteichClasses {
         let tree: Tree = new Tree(389, 320);
         console.log(tree);
         tree.draw();
-        trees.push(tree);
+        drawables.push(tree);
 
         for (let i:number = 0;i<7;i++){
             let x = 100 + Math.random() * 200;
@@ -66,7 +64,7 @@ namespace EntenteichClasses {
         let bush: Bush = new Bush(310, 580);
         console.log(bush);
         bush.draw();
-        bushes.push(bush);
+        drawables.push(bush);
 
         for (let i:number = 0;i<8;i++){
             //neue Biene wird an zufälliger Position erzeugt
@@ -74,7 +72,7 @@ namespace EntenteichClasses {
             let randomY = Math.random() * 2 - 1; // Zufällige Zahl zwischen -1 und 1 für die y-Richtung
             let bee: Bee = new Bee(Math.random() * 500, Math.random() * 500, 0.5, new Vector(randomX, randomY));
             //Bienen werden an des Array angehängt
-            bees.push(bee);
+            moveables.push(bee);
         }
 
         drawBackground();
@@ -88,8 +86,8 @@ namespace EntenteichClasses {
             clouds[i].move();
             clouds[i].draw();
         }
-        for (let i:number = 0; i<1; i++){
-            trees [i].draw();
+        for (let drawable of drawables) {
+            drawable.draw();
         }
         for (let i:number = 0; i<7; i++){
             ducks[i].move();
@@ -97,12 +95,9 @@ namespace EntenteichClasses {
             ducks[i].drawStanding();
             ducks[i].drawTail();
         }
-        for (let i:number = 0; i<1; i++){
-            bushes [i].draw();
-        }
-        for (let i:number = 0; i<bees.length; i++){
-            bees[i].move();
-            bees[i].draw();
+        for (let moveable of moveables) {
+            moveable.move();
+            moveable.draw();
         }
         for (let i:number = 0; i<herons.length; i++){
             herons[i].move();

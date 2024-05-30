@@ -1,12 +1,9 @@
 namespace EntenteichClasses {
-    export class Bush{
-        x:number;
-        y:number;
-    
+    export class Bush extends Drawable{
+
         constructor (_x:number, _y:number){
             //console.log("Bush Constructor")
-            this.x = _x;
-            this.y = _y;
+            super(_x,_y)
         }
     
         draw():void{

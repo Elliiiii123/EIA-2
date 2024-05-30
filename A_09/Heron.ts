@@ -1,6 +1,6 @@
 namespace EntenteichClasses {
     
-    export class Heron{
+    export class Heron {
         x:number;
         y:number;
         xFlying: number;

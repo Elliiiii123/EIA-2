@@ -4,11 +4,14 @@ var EntenteichClasses;
     //Eventlistener für handleLoad Funktion
     window.addEventListener("load", handleLoad);
     let clouds = [];
-    let trees = [];
     let ducks = [];
-    let bushes = [];
-    let bees = [];
     let herons = [];
+    let drawables = [];
+    let moveables = [];
+    //Drawables.push (newBush());
+    //drawables.push(newTree());
+    // for (let d of drawables)
+    // d.draw
     function handleLoad(_event) {
         //query selector um auf den canvas zuzugreifen und überprüfen ob er da ist
         let canvas = document.querySelector("canvas");
@@ -24,7 +27,7 @@ var EntenteichClasses;
         let tree = new EntenteichClasses.Tree(389, 320);
         console.log(tree);
         tree.draw();
-        trees.push(tree);
+        drawables.push(tree);
         for (let i = 0; i < 7; i++) {
             let x = 100 + Math.random() * 200;
             let y = 340 + Math.random() * 70;
@@ -51,14 +54,14 @@ var EntenteichClasses;
         let bush = new EntenteichClasses.Bush(310, 580);
         console.log(bush);
         bush.draw();
-        bushes.push(bush);
+        drawables.push(bush);
         for (let i = 0; i < 8; i++) {
             //neue Biene wird an zufälliger Position erzeugt
             let randomX = Math.random() * 2 - 1; // Zufällige Zahl zwischen -1 und 1 für die x-Richtung
             let randomY = Math.random() * 2 - 1; // Zufällige Zahl zwischen -1 und 1 für die y-Richtung
             let bee = new EntenteichClasses.Bee(Math.random() * 500, Math.random() * 500, 0.5, new EntenteichClasses.Vector(randomX, randomY));
             //Bienen werden an des Array angehängt
-            bees.push(bee);
+            moveables.push(bee);
         }
         drawBackground();
         setInterval(animate, 40);
@@ -70,8 +73,8 @@ var EntenteichClasses;
             clouds[i].move();
             clouds[i].draw();
         }
-        for (let i = 0; i < 1; i++) {
-            trees[i].draw();
+        for (let drawable of drawables) {
+            drawable.draw();
         }
         for (let i = 0; i < 7; i++) {
             ducks[i].move();
@@ -79,12 +82,9 @@ var EntenteichClasses;
             ducks[i].drawStanding();
             ducks[i].drawTail();
         }
-        for (let i = 0; i < 1; i++) {
-            bushes[i].draw();
-        }
-        for (let i = 0; i < bees.length; i++) {
-            bees[i].move();
-            bees[i].draw();
+        for (let moveable of moveables) {
+            moveable.move();
+            moveable.draw();
         }
         for (let i = 0; i < herons.length; i++) {
             herons[i].move();
