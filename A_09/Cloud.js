@@ -1,13 +1,10 @@
 "use strict";
 var EntenteichClasses;
 (function (EntenteichClasses) {
-    class Cloud {
-        x;
-        y;
-        constructor(_x, _y) {
+    class Cloud extends EntenteichClasses.Moveable {
+        constructor(_x, _y, _size, _direction, _color) {
             //console.log("Cloud Constructor")
-            this.x = _x;
-            this.y = _y;
+            super(_x, _y, _size, _direction, _color);
         }
         move() {
             //console.log("Cloud move");

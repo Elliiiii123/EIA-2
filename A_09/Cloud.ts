@@ -1,12 +1,9 @@
 namespace EntenteichClasses {
-    export class Cloud{
-        x:number;
-        y:number;
-    
-        constructor (_x:number, _y:number){
+    export class Cloud extends Moveable{
+
+        constructor (_x:number, _y:number, _size: number, _direction: Vector, _color: string){
             //console.log("Cloud Constructor")
-            this.x = _x;
-            this.y = _y;
+            super(_x,_y,_size,_direction,_color)
         }
     
         move ():void{

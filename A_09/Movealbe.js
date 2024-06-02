@@ -27,4 +27,4 @@ var EntenteichClasses;
     }
     EntenteichClasses.Moveable = Moveable;
 })(EntenteichClasses || (EntenteichClasses = {}));
-//# sourceMappingURL=movealbe.js.map
+//# sourceMappingURL=Movealbe.js.map

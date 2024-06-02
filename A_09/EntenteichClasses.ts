@@ -5,13 +5,11 @@ namespace EntenteichClasses {
     //Definiton der crc2 Variable als den HTML Canvas
     export let crc2: CanvasRenderingContext2D;
 
-    let clouds:Cloud[] = [];
     let ducks:Duck[] = [];
     let herons:Heron[] = [];
     let drawables: Drawable[] = [];
     let moveables: Moveable[] = [];
-    //Drawables.push (newBush());
-    //drawables.push(newTree());
+
     // for (let d of drawables)
     // d.draw
 
@@ -25,15 +23,16 @@ namespace EntenteichClasses {
 
         for (let i:number = 0;i<4;i++){
             //neue Wolke wird an zufälliger Position erzeugt
-            let cloud: Cloud = new Cloud(Math.random() * 200, Math.random() * 150);
+            let cloud: Cloud = new Cloud(Math.random() * 200, Math.random() * 150, 0, new Vector(0, 0), "white");
             //Wolken werden an des Array angehängt
-            clouds.push(cloud);
+            moveables.push(cloud);
         }
 
         let tree: Tree = new Tree(389, 320);
         console.log(tree);
         tree.draw();
         drawables.push(tree);
+        //Baum wird nichtmehr über wolken gezeichnet:(
 
         for (let i:number = 0;i<7;i++){
             let x = 100 + Math.random() * 200;
@@ -53,7 +52,7 @@ namespace EntenteichClasses {
             let randomY = 450 + Math.random() * 200; // Zufällige y-Position zwischen 400 und 600
             let xFlying = 70 + Math.random() * 200;
             let yFlying = 350 + Math.random() * 100;
-            let heron: Heron = new Heron(Math.random() * 200, randomY, xFlying, yFlying, 0.5, new Vector(randomX, 0));
+            let heron: Heron = new Heron(Math.random() * 200, randomY,  0.5, new Vector(randomX, 0), "grey");
             
             // Kranich nur zum Array hinzufügen, wenn y-Position zwischen 400 und 600 liegt
             if (randomY >= 400 && randomY <= 600) {
@@ -82,10 +81,7 @@ namespace EntenteichClasses {
     function animate(): void{
         console.log("animate");
         drawBackground();
-        for (let i:number = 0; i<4; i++){
-            clouds[i].move();
-            clouds[i].draw();
-        }
+
         for (let drawable of drawables) {
             drawable.draw();
         }
@@ -99,11 +95,11 @@ namespace EntenteichClasses {
             moveable.move();
             moveable.draw();
         }
-        for (let i:number = 0; i<herons.length; i++){
-            herons[i].move();
-            herons[i].draw();
-            herons[i].drawFlying();
-        }
+        // for (let i:number = 0; i<herons.length; i++){
+        //     herons[i].move();
+        //     herons[i].draw();
+
+        // }
 
     }
 
