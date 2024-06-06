@@ -11,5 +11,9 @@ namespace EntenteichClasses {
         draw() :void {
             console.log("draw Movable")
         }
+
+        update(): void {
+            this.draw();
+        }
     }
 }

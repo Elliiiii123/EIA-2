@@ -7,12 +7,9 @@ namespace EntenteichClasses {
 
     let ducks:Duck[] = [];
     let herons:Heron[] = [];
-    let drawables: Drawable[] = [];
-    let moveables: Moveable[] = [];
-
-    // for (let d of drawables)
-    // d.draw
-
+    let allObjects: Drawable[] = [];
+    // let clouds:Moveable[];
+    //let moveables: Moveable[] = [];
     
     function handleLoad(_event:Event):void{
         //query selector um auf den canvas zuzugreifen und überprüfen ob er da ist
@@ -21,37 +18,41 @@ namespace EntenteichClasses {
             return;
         crc2 = <CanvasRenderingContext2D>canvas.getContext("2d");
 
-        for (let i:number = 0;i<4;i++){
+        for (let i:number = 0;i<7;i++){
             //neue Wolke wird an zufälliger Position erzeugt
             let cloud: Cloud = new Cloud(Math.random() * 200, Math.random() * 150, 0, new Vector(0, 0), "white");
             //Wolken werden an des Array angehängt
-            moveables.push(cloud);
+            allObjects.push(cloud);
         }
 
         let tree: Tree = new Tree(389, 320);
         console.log(tree);
-        tree.draw();
-        drawables.push(tree);
+        allObjects.push(tree);
+    
         //Baum wird nichtmehr über wolken gezeichnet:(
 
         for (let i:number = 0;i<7;i++){
             let x = 100 + Math.random() * 200;
             let y = 340 + Math.random() * 70;
-            let xTail = 70 + Math.random() * 70;
-            let yTail = 350 + Math.random() * 100;
-            let xStanding = 200 + Math.random() * 300;
-            let yStanding = 450 + Math.random() * 80;
-            let duck: Duck = new Duck(x, y, xStanding, yStanding, xTail, yTail, "brown");
-            let duckYellow: Duck = new Duck(x, y, xStanding, yStanding, xTail, yTail, "yellow");
+            // let xTail = 70 + Math.random() * 70;
+            // let yTail = 350 + Math.random() * 100;
+            // let xStanding = 200 + Math.random() * 300;
+            // let yStanding = 450 + Math.random() * 80;
+            let duck: Duck = new Duck(x, y, "brown", "swim");
+            let duckYellow: Duck = new Duck(x, y, "yellow", "swim");
             ducks.push(duck);
             ducks.push(duckYellow);
+        }
+
+        for (let i:number = 0;i<7;i++){
+            allObjects.push(createDuck)
         }
 
         for (let i:number = 0;i<4;i++){
             let randomX = Math.random() * 2 - 1; // Zufällige Zahl zwischen -1 und 1 für die x-Richtung
             let randomY = 450 + Math.random() * 200; // Zufällige y-Position zwischen 400 und 600
-            let xFlying = 70 + Math.random() * 200;
-            let yFlying = 350 + Math.random() * 100;
+            //let xFlying = 70 + Math.random() * 200;
+            //let yFlying = 350 + Math.random() * 100;
             let heron: Heron = new Heron(Math.random() * 200, randomY,  0.5, new Vector(randomX, 0), "grey");
             
             // Kranich nur zum Array hinzufügen, wenn y-Position zwischen 400 und 600 liegt
@@ -62,8 +63,7 @@ namespace EntenteichClasses {
 
         let bush: Bush = new Bush(310, 580);
         console.log(bush);
-        bush.draw();
-        drawables.push(bush);
+        allObjects.push(bush);
 
         for (let i:number = 0;i<8;i++){
             //neue Biene wird an zufälliger Position erzeugt
@@ -71,34 +71,56 @@ namespace EntenteichClasses {
             let randomY = Math.random() * 2 - 1; // Zufällige Zahl zwischen -1 und 1 für die y-Richtung
             let bee: Bee = new Bee(Math.random() * 500, Math.random() * 500, 0.5, new Vector(randomX, randomY));
             //Bienen werden an des Array angehängt
-            moveables.push(bee);
+            allObjects.push(bee);
         }
 
         drawBackground();
         setInterval(animate, 40);
     }
 
+    function createDuck(): Duck{
+
+        let r:number = Math.random();
+        let state = "swim";
+
+        let x:number = 100 + Math.random() * 200;
+        let y:number = 340 + Math.random() * 70;
+
+        if ( r < 0.3) {
+            state = "stand"
+            let x = 200 + Math.random() * 300;
+            let y = 450 + Math.random() * 80;
+        }
+        else if ( r = 0.8 ) {
+            state = "dive"
+            let x = 70 + Math.random() * 70;
+            let y = 350 + Math.random() * 100;
+        }
+
+        let duck: new Duck (x, y, "brown", state);
+        return duck;
+    }
+
     function animate(): void{
         console.log("animate");
         drawBackground();
 
-        for (let drawable of drawables) {
-            drawable.draw();
+        for(let object of allObjects){
+            object.update();
         }
+
         for (let i:number = 0; i<7; i++){
             ducks[i].move();
             ducks[i].draw();
-            ducks[i].drawStanding();
-            ducks[i].drawTail();
         }
-        for (let moveable of moveables) {
-            moveable.move();
-            moveable.draw();
-        }
+        // for (let moveable of moveables) {
+        //     moveable.move();
+        //     moveable.draw();
+        // }
+
         // for (let i:number = 0; i<herons.length; i++){
         //     herons[i].move();
         //     herons[i].draw();
-
         // }
 
     }

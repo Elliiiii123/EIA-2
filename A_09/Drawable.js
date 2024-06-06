@@ -11,6 +11,9 @@ var EntenteichClasses;
         draw() {
             console.log("draw Movable");
         }
+        update() {
+            this.draw();
+        }
     }
     EntenteichClasses.Drawable = Drawable;
 })(EntenteichClasses || (EntenteichClasses = {}));

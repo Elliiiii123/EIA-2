@@ -12,14 +12,16 @@ var EntenteichClasses;
         standingDirection;
         color;
         size;
-        constructor(_x, _y, _xStanding, _yStanding, _xTail, _yTail, _color) {
+        state;
+        constructor(_x, _y, _color, _state) {
             //console.log("Duck Constructor")
             this.x = _x;
             this.y = _y;
-            this.xStanding = _xStanding;
-            this.yStanding = _yStanding;
-            this.xTail = _xTail;
-            this.yTail = _yTail;
+            this.state = _state;
+            // this.xStanding= _xStanding;
+            // this.yStanding= _yStanding;
+            // this.xTail= _xTail;
+            // this.yTail= _yTail;
             this.direction = this.getRandomDirection();
             this.standingDirection = this.getRandomDirection();
             this.color = _color;
@@ -62,6 +64,18 @@ var EntenteichClasses;
             }
         }
         draw() {
+            switch (this.state) {
+                case "swim":
+                    this.drawSwimming();
+                    break;
+                case "dive":
+                    this.drawTail;
+                    break;
+                default:
+                    this.drawStanding();
+            }
+        }
+        drawSwimming() {
             //console.log("Duck draw")
             EntenteichClasses.crc2.save();
             // Verschieben des Ursprungs des Koordinatensystems zur Position der Ente
@@ -122,7 +136,7 @@ var EntenteichClasses;
         drawStanding() {
             EntenteichClasses.crc2.save();
             // Verschieben des Ursprungs des Koordinatensystems zur Position der Ente
-            EntenteichClasses.crc2.translate(this.xStanding, this.yStanding);
+            EntenteichClasses.crc2.translate(this.x, this.y);
             EntenteichClasses.crc2.scale(-this.standingDirection, 1);
             // Körper der Ente als Ellipse
             let bodyRadiusX = 15; // Horizontaler Radius des Körpers
@@ -174,7 +188,7 @@ var EntenteichClasses;
         drawTail() {
             EntenteichClasses.crc2.save();
             // Verschieben des Ursprungs des Koordinatensystems zur Position des Entenschwanzes
-            EntenteichClasses.crc2.translate(this.xTail, this.yTail);
+            EntenteichClasses.crc2.translate(this.x, this.y);
             EntenteichClasses.crc2.scale(this.direction, 1);
             // Körper der Ente als halbe Ellipse
             let bodyRadiusX = 7; // Horizontaler Radius des Körpers

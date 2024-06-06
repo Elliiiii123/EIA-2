@@ -24,6 +24,10 @@ var EntenteichClasses;
         draw() {
             super.draw(); // Aufruf der draw-Methode der Superklasse
         }
+        update() {
+            this.draw();
+            this.move();
+        }
     }
     EntenteichClasses.Moveable = Moveable;
 })(EntenteichClasses || (EntenteichClasses = {}));

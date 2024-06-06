@@ -24,5 +24,10 @@ namespace EntenteichClasses {
         draw(): void {
             super.draw(); // Aufruf der draw-Methode der Superklasse
         }
+
+        update(): void {
+            this.draw();
+            this.move();
+        }
     }
 }

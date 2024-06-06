@@ -11,15 +11,17 @@ namespace EntenteichClasses {
         standingDirection: number;
         color: string;
         size: number;
+        state: string;
 
-        constructor (_x:number, _y:number, _xStanding:number, _yStanding:number, _xTail:number, _yTail:number, _color: string){
+        constructor (_x:number, _y:number, _color: string, _state:string){
             //console.log("Duck Constructor")
             this.x = _x;
             this.y = _y;
-            this.xStanding= _xStanding;
-            this.yStanding= _yStanding;
-            this.xTail= _xTail;
-            this.yTail= _yTail;
+            this.state = _state;
+            // this.xStanding= _xStanding;
+            // this.yStanding= _yStanding;
+            // this.xTail= _xTail;
+            // this.yTail= _yTail;
             this.direction = this.getRandomDirection();
             this.standingDirection = this.getRandomDirection();
             this.color = _color;
@@ -62,7 +64,21 @@ namespace EntenteichClasses {
             }
         }
 
-        draw():void{
+        draw():void {
+
+            switch (this.state) {
+                case "swim":
+                    this.drawSwimming();
+                    break;
+                case "dive":
+                this.drawTail;
+                break;
+            default:
+                this.drawStanding();
+            }
+        }
+
+        drawSwimming():void{
             //console.log("Duck draw")
             crc2.save();
 
@@ -129,7 +145,7 @@ namespace EntenteichClasses {
             crc2.save();
     
             // Verschieben des Ursprungs des Koordinatensystems zur Position der Ente
-            crc2.translate(this.xStanding, this.yStanding);
+            crc2.translate(this.x, this.y);
             crc2.scale(-this.standingDirection, 1);
         
             // Körper der Ente als Ellipse
@@ -190,7 +206,7 @@ namespace EntenteichClasses {
             crc2.save();
         
             // Verschieben des Ursprungs des Koordinatensystems zur Position des Entenschwanzes
-            crc2.translate(this.xTail, this.yTail);
+            crc2.translate(this.x, this.y);
             crc2.scale(this.direction, 1);
         
             // Körper der Ente als halbe Ellipse
@@ -212,5 +228,6 @@ namespace EntenteichClasses {
             // Wiederherstellen des ursprünglichen Zustands des Canvas
             crc2.restore();
         }  
+
     }
 }
