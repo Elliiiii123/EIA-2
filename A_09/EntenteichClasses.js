@@ -6,6 +6,7 @@ var EntenteichClasses;
     let ducks = [];
     let herons = [];
     let allObjects = [];
+    let offset = 0;
     // let clouds:Moveable[];
     //let moveables: Moveable[] = [];
     function handleLoad(_event) {
@@ -24,20 +25,10 @@ var EntenteichClasses;
         console.log(tree);
         allObjects.push(tree);
         //Baum wird nichtmehr über wolken gezeichnet:(
+        offset = 0;
         for (let i = 0; i < 7; i++) {
-            let x = 100 + Math.random() * 200;
-            let y = 340 + Math.random() * 70;
-            // let xTail = 70 + Math.random() * 70;
-            // let yTail = 350 + Math.random() * 100;
-            // let xStanding = 200 + Math.random() * 300;
-            // let yStanding = 450 + Math.random() * 80;
-            let duck = new EntenteichClasses.Duck(x, y, "brown", "swim");
-            let duckYellow = new EntenteichClasses.Duck(x, y, "yellow", "swim");
-            ducks.push(duck);
-            ducks.push(duckYellow);
-        }
-        for (let i = 0; i < 7; i++) {
-            allObjects.push(createDuck);
+            ducks.push(createDuck());
+            offset += 20;
         }
         for (let i = 0; i < 4; i++) {
             let randomX = Math.random() * 2 - 1; // Zufällige Zahl zwischen -1 und 1 für die x-Richtung
@@ -71,16 +62,17 @@ var EntenteichClasses;
         let y = 340 + Math.random() * 70;
         if (r < 0.3) {
             state = "stand";
-            let x = 200 + Math.random() * 300;
-            let y = 450 + Math.random() * 80;
+            x = 200 + Math.random() * 300;
+            y = 450 + Math.random() * 80;
         }
-        else if (r = 0.8) {
+        else if (r > 0.8) {
             state = "dive";
-            let x = 70 + Math.random() * 70;
-            let y = 350 + Math.random() * 100;
+            x = 70 + Math.random() * 70;
+            y = 350 + Math.random() * 100;
         }
-        let duck;
-        (x, y, "brown", state);
+        //x = 100;
+        //y = 100 + offset;
+        let duck = new EntenteichClasses.Duck(x, y, "brown", state);
         return duck;
     }
     function animate() {

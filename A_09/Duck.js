@@ -25,31 +25,28 @@ var EntenteichClasses;
             this.direction = this.getRandomDirection();
             this.standingDirection = this.getRandomDirection();
             this.color = _color;
-            if (_color === "yellow" || _color === "gold") {
-                this.color = _color;
-            }
-            else {
-                this.color = "brown"; // Wenn nicht, ist die Ente braun
-            }
+            //   if (_color === "yellow" || _color === "gold") {
+            //     this.color = _color;
+            //   } else {
+            //     this.color = "brown"; // Wenn nicht, ist die Ente braun
+            //   }
         }
         move() {
             //console.log("Duck move")
-            this.x += this.direction;
-            this.xStanding -= this.standingDirection;
-            this.xTail -= this.direction * 0.5;
-            ;
-            if (this.x >= 300 || this.x <= 50) {
-                this.direction *= -1;
-            }
-            if (this.xTail >= 300 || this.xTail <= 50) {
-                this.direction *= -1;
-            }
-            if (this.xStanding >= 400) {
-                this.xStanding = 0; // Ente erscheint auf der linken Seite
-            }
-            else if (this.xStanding <= 0) {
-                this.xStanding = 400; // Ente erscheint auf der rechten Seite
-            }
+            //   this.x += this.direction;
+            //   this.xStanding -= this.standingDirection;
+            //   this.xTail -= this.direction * 0.5;
+            //   if (this.x >= 300 || this.x <= 50) {
+            //     this.direction *= -1;
+            //   }
+            //   if (this.xTail >= 300 || this.xTail <= 50) {
+            //     this.direction *= -1;
+            //   }
+            //   if (this.xStanding >= 400) {
+            //     this.xStanding = 0; // Ente erscheint auf der linken Seite
+            //   } else if (this.xStanding <= 0) {
+            //     this.xStanding = 400; // Ente erscheint auf der rechten Seite
+            //   }
         }
         getRandomDirection() {
             let rand = Math.random();
@@ -69,7 +66,7 @@ var EntenteichClasses;
                     this.drawSwimming();
                     break;
                 case "dive":
-                    this.drawTail;
+                    this.drawTail();
                     break;
                 default:
                     this.drawStanding();
@@ -80,7 +77,8 @@ var EntenteichClasses;
             EntenteichClasses.crc2.save();
             // Verschieben des Ursprungs des Koordinatensystems zur Position der Ente
             EntenteichClasses.crc2.translate(this.x, this.y);
-            EntenteichClasses.crc2.scale(this.direction, 1);
+            if (this.direction != 0)
+                EntenteichClasses.crc2.scale(this.direction, 1);
             // Körper der Ente als Ellipse
             let bodyRadiusX = 15; // Horizontaler Radius des Körpers
             let bodyRadiusY = 10; // Vertikaler Radius des Körpers
@@ -137,7 +135,8 @@ var EntenteichClasses;
             EntenteichClasses.crc2.save();
             // Verschieben des Ursprungs des Koordinatensystems zur Position der Ente
             EntenteichClasses.crc2.translate(this.x, this.y);
-            EntenteichClasses.crc2.scale(-this.standingDirection, 1);
+            if (this.standingDirection != 0)
+                EntenteichClasses.crc2.scale(-this.standingDirection, 1);
             // Körper der Ente als Ellipse
             let bodyRadiusX = 15; // Horizontaler Radius des Körpers
             let bodyRadiusY = 10; // Vertikaler Radius des Körpers
@@ -173,7 +172,7 @@ var EntenteichClasses;
             EntenteichClasses.crc2.fillStyle = "brown"; // Braune Farbe für den Flügel
             EntenteichClasses.crc2.fill();
             EntenteichClasses.crc2.closePath();
-            // Beine der Ente 
+            // Beine der Ente
             EntenteichClasses.crc2.beginPath();
             EntenteichClasses.crc2.moveTo(0, 7); // Startpunkt des Beins
             EntenteichClasses.crc2.lineTo(0, 15); // Obere Linie des Beins
@@ -189,7 +188,8 @@ var EntenteichClasses;
             EntenteichClasses.crc2.save();
             // Verschieben des Ursprungs des Koordinatensystems zur Position des Entenschwanzes
             EntenteichClasses.crc2.translate(this.x, this.y);
-            EntenteichClasses.crc2.scale(this.direction, 1);
+            if (this.direction != 0)
+                EntenteichClasses.crc2.scale(this.direction, 1);
             // Körper der Ente als halbe Ellipse
             let bodyRadiusX = 7; // Horizontaler Radius des Körpers
             let bodyRadiusY = 10; // Vertikaler Radius des Körpers
@@ -209,5 +209,6 @@ var EntenteichClasses;
         }
     }
     EntenteichClasses.Duck = Duck;
+    update;
 })(EntenteichClasses || (EntenteichClasses = {}));
 //# sourceMappingURL=Duck.js.map
