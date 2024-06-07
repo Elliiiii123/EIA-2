@@ -3,12 +3,7 @@ var EntenteichClasses;
 (function (EntenteichClasses) {
     //Eventlistener für handleLoad Funktion
     window.addEventListener("load", handleLoad);
-    let ducks = [];
-    let herons = [];
     let allObjects = [];
-    let offset = 0;
-    // let clouds:Moveable[];
-    //let moveables: Moveable[] = [];
     function handleLoad(_event) {
         //query selector um auf den canvas zuzugreifen und überprüfen ob er da ist
         let canvas = document.querySelector("canvas");
@@ -24,22 +19,11 @@ var EntenteichClasses;
         let tree = new EntenteichClasses.Tree(389, 320);
         console.log(tree);
         allObjects.push(tree);
-        //Baum wird nichtmehr über wolken gezeichnet:(
-        offset = 0;
         for (let i = 0; i < 7; i++) {
-            ducks.push(createDuck());
-            offset += 20;
+            allObjects.push(createDuck());
         }
         for (let i = 0; i < 4; i++) {
-            let randomX = Math.random() * 2 - 1; // Zufällige Zahl zwischen -1 und 1 für die x-Richtung
-            let randomY = 450 + Math.random() * 200; // Zufällige y-Position zwischen 400 und 600
-            //let xFlying = 70 + Math.random() * 200;
-            //let yFlying = 350 + Math.random() * 100;
-            let heron = new EntenteichClasses.Heron(Math.random() * 200, randomY, 0.5, new EntenteichClasses.Vector(randomX, 0), "grey");
-            // Kranich nur zum Array hinzufügen, wenn y-Position zwischen 400 und 600 liegt
-            if (randomY >= 400 && randomY <= 600) {
-                herons.push(heron);
-            }
+            allObjects.push(createHeron());
         }
         let bush = new EntenteichClasses.Bush(310, 580);
         console.log(bush);
@@ -70,10 +54,31 @@ var EntenteichClasses;
             x = 70 + Math.random() * 70;
             y = 350 + Math.random() * 100;
         }
-        //x = 100;
-        //y = 100 + offset;
-        let duck = new EntenteichClasses.Duck(x, y, "brown", state);
+        let color = Math.random() < 0.5 ? "yellow" : "brown"; // Zufällige Farbe (gelb oder braun)
+        let duck = new EntenteichClasses.Duck(x, y, 5, new EntenteichClasses.Vector(1, 0), color, state);
         return duck;
+    }
+    function createHeron() {
+        let r = Math.random();
+        let state = "swim";
+        let x; //Math.random() * 50 - 1;
+        if (r < 0.5) {
+            state = "stand";
+            x = 70 + Math.random() * 200; // x-Koordinate für den stehenden Kranich
+        }
+        else {
+            // x-Koordinate für den schwimmenden Kranich zwischen 50 und 350
+            x = 70 + Math.random() * 300;
+        }
+        let y = 370 + Math.random() * 100;
+        if (r < 0.5) {
+            state = "stand";
+            x = 70 + Math.random() * 200;
+            y = 450 + Math.random() * 80;
+        }
+        let color = Math.random() < 0.5 ? "yellow" : "brown"; // Zufällige Farbe (gelb oder braun)
+        let herons = new EntenteichClasses.Heron(x, y, 0.6, new EntenteichClasses.Vector(1, 0), color, state);
+        return herons;
     }
     function animate() {
         console.log("animate");
@@ -81,18 +86,6 @@ var EntenteichClasses;
         for (let object of allObjects) {
             object.update();
         }
-        for (let i = 0; i < 7; i++) {
-            ducks[i].move();
-            ducks[i].draw();
-        }
-        // for (let moveable of moveables) {
-        //     moveable.move();
-        //     moveable.draw();
-        // }
-        // for (let i:number = 0; i<herons.length; i++){
-        //     herons[i].move();
-        //     herons[i].draw();
-        // }
     }
     function drawBackground() {
         //console.log("Background");
