@@ -8,9 +8,6 @@ var EntenteichClasses;
             this.x = _x;
             this.y = _y;
         }
-        draw() {
-            console.log("draw Movable");
-        }
         update() {
             this.draw();
         }

@@ -1,6 +1,6 @@
 namespace EntenteichClasses {
   export class Heron extends Moveable {
-    state: string;
+    private state: HeronState;
 
     constructor(
       _x: number,
@@ -8,20 +8,20 @@ namespace EntenteichClasses {
       _size: number,
       _direction: Vector,
       _color: string,
-      _state: string
+      _state: HeronState
     ) {
       //console.log("Duck Constructor")
       super(_x, _y, _size, _direction, _color);
       this.state = _state;
     }
 
-    move(): void {
+    protected move(): void {
       //console.log("Duck move")
 
       this.x += this.direction.x;
       this.y += this.direction.y;
       switch (this.state) {
-        case "swim":
+        case HeronState.Swim:
             if ((this.x >= 350 && this.direction.x > 0) || (this.x <= 80 && this.direction.x < 0)) {
                 this.direction.x *= -1;
               }
@@ -35,9 +35,9 @@ namespace EntenteichClasses {
       }
     }
 
-    draw(): void {
+    protected draw(): void {
       switch (this.state) {
-        case "swim":
+        case HeronState.Swim:
           this.drawSwimming();
           break;
         default:
@@ -45,7 +45,7 @@ namespace EntenteichClasses {
       }
     }
 
-    drawSwimming(): void {
+    private drawSwimming(): void {
       crc2.save();
       crc2.translate(this.x, this.y);
       crc2.scale(this.size, this.size);
@@ -112,7 +112,7 @@ namespace EntenteichClasses {
       crc2.restore();
     }
 
-    drawStanding(): void {
+    private drawStanding(): void {
       crc2.save();
       crc2.translate(this.x, this.y);
       crc2.scale(this.size, this.size);

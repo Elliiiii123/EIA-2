@@ -53,18 +53,18 @@ namespace EntenteichClasses {
     function createDuck(): Duck{
 
         let r:number = Math.random();
-        let state = "swim";
+        let state:DuckState = DuckState.Swim;
 
         let x:number = 100 + Math.random() * 200;
         let y:number = 340 + Math.random() * 70;
 
         if ( r < 0.3) {
-            state = "stand"
+            state = DuckState.Stand;
             x = 200 + Math.random() * 300;
             y = 450 + Math.random() * 80;
         }
         else if ( r > 0.8 ) {
-            state = "dive"
+            state = DuckState.Dive;
             x = 70 + Math.random() * 70;
             y = 350 + Math.random() * 100;
         }
@@ -77,11 +77,12 @@ namespace EntenteichClasses {
     function createHeron(): Heron{
 
         let r:number = Math.random();
-        let state = "swim";
+        let state:HeronState = HeronState.Swim;
+
 
         let x:number//Math.random() * 50 - 1;
         if (r < 0.5) {
-            state = "stand"
+            state = HeronState.Swim
             x = 70 + Math.random() * 200; // x-Koordinate für den stehenden Kranich
         } else {
             // x-Koordinate für den schwimmenden Kranich zwischen 50 und 350
@@ -90,7 +91,7 @@ namespace EntenteichClasses {
         let y:number = 370 + Math.random() * 100;
 
         if ( r < 0.5) {
-            state = "stand"
+            state = HeronState.Stand
             x = 70 + Math.random() * 200;
             y = 450 + Math.random() * 80;
         }

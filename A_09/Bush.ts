@@ -6,7 +6,7 @@ namespace EntenteichClasses {
             super(_x,_y)
         }
     
-        draw():void{
+        protected draw():void{
             //console.log("Bush draw")
             let numberOfParticles: number = 50; // Anzahl der Partikel in der Wolke
             let cloudWidth: number = 80; // Breite der Wolke
@@ -22,7 +22,7 @@ namespace EntenteichClasses {
             }
         }
     
-        drawBushParticle(x: number, y: number): void {
+        private drawBushParticle(x: number, y: number): void {
       
             crc2.save();
             crc2.beginPath();

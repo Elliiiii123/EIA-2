@@ -7,24 +7,24 @@ var EntenteichClasses;
             super(_x, _y, _size, _direction, _color);
             //console.log("Duck Constructor")
             this.state = _state;
-            this.direction = this.getRandomDirection();
+            this.direction = Duck.getRandomDirection();
         }
         move() {
             //console.log("Duck move")
             switch (this.state) {
-                case "swim":
+                case EntenteichClasses.DuckState.Swim:
                     this.x += this.direction.x;
                     if (this.x >= 360 || this.x <= 50) {
                         this.direction.x *= -1;
                     }
                     break;
-                case "dive":
+                case EntenteichClasses.DuckState.Dive:
                     this.x += this.direction.x * 0.5;
                     if (this.x >= 360 || this.x <= 50) {
                         this.direction.x *= -1;
                     }
                     break;
-                default: // assuming "standing" is the default state
+                default: // assuming Duckstate.Stand ist der default state
                     this.x += this.direction.x;
                     if (this.x >= 400) {
                         this.x = 0; // Ente erscheint auf der linken Seite
@@ -34,7 +34,7 @@ var EntenteichClasses;
                     }
             }
         }
-        getRandomDirection() {
+        static getRandomDirection() {
             let rand = Math.random();
             if (rand < 0.45) {
                 return new EntenteichClasses.Vector(-1, 0); // Links
@@ -48,10 +48,10 @@ var EntenteichClasses;
         }
         draw() {
             switch (this.state) {
-                case "swim":
+                case EntenteichClasses.DuckState.Swim:
                     this.drawSwimming();
                     break;
-                case "dive":
+                case EntenteichClasses.DuckState.Dive:
                     this.drawTail();
                     break;
                 default:

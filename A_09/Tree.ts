@@ -6,7 +6,7 @@ namespace EntenteichClasses {
             super(_x,_y)
         }
 
-        draw():void{
+        protected draw():void{
             //console.log("Tree draw");
 
             crc2.save();

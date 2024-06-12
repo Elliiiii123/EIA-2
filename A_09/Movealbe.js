@@ -18,12 +18,6 @@ var EntenteichClasses;
                 this.color = "brown"; // Wenn nicht, ist die Ente braun
             }
         }
-        move() {
-            console.log("moveable move");
-        }
-        draw() {
-            super.draw(); // Aufruf der draw-Methode der Superklasse
-        }
         update() {
             this.draw();
             this.move();

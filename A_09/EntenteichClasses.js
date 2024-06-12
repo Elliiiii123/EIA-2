@@ -41,16 +41,16 @@ var EntenteichClasses;
     }
     function createDuck() {
         let r = Math.random();
-        let state = "swim";
+        let state = EntenteichClasses.DuckState.Swim;
         let x = 100 + Math.random() * 200;
         let y = 340 + Math.random() * 70;
         if (r < 0.3) {
-            state = "stand";
+            state = EntenteichClasses.DuckState.Stand;
             x = 200 + Math.random() * 300;
             y = 450 + Math.random() * 80;
         }
         else if (r > 0.8) {
-            state = "dive";
+            state = EntenteichClasses.DuckState.Dive;
             x = 70 + Math.random() * 70;
             y = 350 + Math.random() * 100;
         }
@@ -60,10 +60,10 @@ var EntenteichClasses;
     }
     function createHeron() {
         let r = Math.random();
-        let state = "swim";
+        let state = EntenteichClasses.HeronState.Swim;
         let x; //Math.random() * 50 - 1;
         if (r < 0.5) {
-            state = "stand";
+            state = EntenteichClasses.HeronState.Swim;
             x = 70 + Math.random() * 200; // x-Koordinate für den stehenden Kranich
         }
         else {
@@ -72,7 +72,7 @@ var EntenteichClasses;
         }
         let y = 370 + Math.random() * 100;
         if (r < 0.5) {
-            state = "stand";
+            state = EntenteichClasses.HeronState.Stand;
             x = 70 + Math.random() * 200;
             y = 450 + Math.random() * 80;
         }

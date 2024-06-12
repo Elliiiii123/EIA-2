@@ -13,7 +13,7 @@ var EntenteichClasses;
             this.x += this.direction.x;
             this.y += this.direction.y;
             switch (this.state) {
-                case "swim":
+                case EntenteichClasses.HeronState.Swim:
                     if ((this.x >= 350 && this.direction.x > 0) || (this.x <= 80 && this.direction.x < 0)) {
                         this.direction.x *= -1;
                     }
@@ -29,7 +29,7 @@ var EntenteichClasses;
         }
         draw() {
             switch (this.state) {
-                case "swim":
+                case EntenteichClasses.HeronState.Swim:
                     this.drawSwimming();
                     break;
                 default:

@@ -6,7 +6,7 @@ namespace EntenteichClasses {
             super(_x, _y, _size, _direction, "yellow"); // Bienen sind standardmäßig gelb
         }
 
-        move(): void {
+        protected move(): void {
             let randomX = (Math.random() * 10 - 1) * 10; // Zufällige Zahl zwischen -1 und 1 für die x-Richtung
             
             if (randomX < 0) {
@@ -32,7 +32,7 @@ namespace EntenteichClasses {
             }
         }
 
-        draw(): void {
+        protected draw(): void {
             crc2.save();
             crc2.beginPath();
             crc2.translate(this.x, this.y);

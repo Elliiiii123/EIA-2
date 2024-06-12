@@ -1,8 +1,8 @@
 namespace EntenteichClasses {
-    export class Moveable extends Drawable{
-        direction: Vector;
-        color: string;
-        size: number;
+    export abstract class Moveable extends Drawable{
+        protected direction: Vector;
+        protected color: string;
+        protected size: number;
 
         constructor (_x: number, _y: number,_size: number, _direction: Vector, _color: string){
             //console.log("Duck Constructor")
@@ -17,15 +17,11 @@ namespace EntenteichClasses {
             }
         }
     
-        move():void {
-            console.log("moveable move");
-        }
+        protected abstract move():void 
 
-        draw(): void {
-            super.draw(); // Aufruf der draw-Methode der Superklasse
-        }
+        protected abstract draw(): void 
 
-        update(): void {
+        public update(): void {
             this.draw();
             this.move();
         }

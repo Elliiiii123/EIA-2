@@ -6,7 +6,7 @@ namespace EntenteichClasses {
             super(_x,_y,_size,_direction,_color)
         }
     
-        move ():void{
+        protected move ():void{
             //console.log("Cloud move");
             this.x +=1;
 
@@ -15,7 +15,7 @@ namespace EntenteichClasses {
             }
         }
     
-        draw():void{
+        protected draw():void{
             //console.log("Cloud draw")
             let numberOfParticles: number = 50; // Anzahl der Partikel in der Wolke
             let cloudWidth: number = 120; // Breite der Wolke
@@ -34,7 +34,7 @@ namespace EntenteichClasses {
             }
         }
 
-        drawCloudParticle(x: number, y: number): void {
+        private drawCloudParticle(x: number, y: number): void {
             let gradient = crc2.createRadialGradient(x, y, 0, x, y, 15);
     
             // Farben für den Gradienten festlegen
@@ -51,7 +51,7 @@ namespace EntenteichClasses {
             crc2.restore();    
         }
 
-        pseudoRandom(seed: number): () => number {
+        private pseudoRandom(seed: number): () => number {
             let value = seed;
             return function() {
                 value = (value * 9301 + 49297) % 233280;

@@ -1,6 +1,7 @@
 namespace EntenteichClasses {
   export class Duck extends Moveable {
-    state: string;
+
+    private state: DuckState;
 
     constructor(
       _x: number,
@@ -8,30 +9,30 @@ namespace EntenteichClasses {
       _size: number,
       _direction: Vector,
       _color: string,
-      _state: string
+      _state: DuckState,
     ) {
       super(_x, _y, _size, _direction, _color);
       //console.log("Duck Constructor")
       this.state = _state;
-      this.direction = this.getRandomDirection();
+      this.direction = Duck.getRandomDirection();
     }
 
-    move(): void {
+    protected move(): void {
       //console.log("Duck move")
       switch (this.state) {
-        case "swim":
+        case DuckState.Swim:
           this.x += this.direction.x;
           if (this.x >= 360 || this.x <= 50) {
             this.direction.x *= -1;
           }
           break;
-        case "dive":
+        case DuckState.Dive:
           this.x += this.direction.x * 0.5;
           if (this.x >= 360 || this.x <= 50) {
             this.direction.x *= -1;
           }
           break;
-        default: // assuming "standing" is the default state
+        default: // assuming Duckstate.Stand ist der default state
           this.x += this.direction.x;
           if (this.x >= 400) {
             this.x = 0; // Ente erscheint auf der linken Seite
@@ -41,7 +42,7 @@ namespace EntenteichClasses {
         }
     }
 
-    getRandomDirection(): Vector {
+    private static getRandomDirection(): Vector {
       let rand = Math.random();
       if (rand < 0.45) {
         return new Vector(-1, 0); // Links
@@ -52,12 +53,12 @@ namespace EntenteichClasses {
       }
     }
 
-    draw(): void {
+    protected draw(): void {
       switch (this.state) {
-        case "swim":
+        case DuckState.Swim:
           this.drawSwimming();
           break;
-        case "dive":
+        case DuckState.Dive:
           this.drawTail();
           break;
         default:
@@ -65,7 +66,7 @@ namespace EntenteichClasses {
       }
     }
 
-    drawSwimming(): void {
+    private drawSwimming(): void {
       //console.log("Duck draw")
       crc2.save();
 
@@ -128,7 +129,7 @@ namespace EntenteichClasses {
       crc2.restore();
     }
 
-    drawStanding(): void {
+    private drawStanding(): void {
       crc2.save();
 
       // Verschieben des Ursprungs des Koordinatensystems zur Position der Ente
@@ -189,7 +190,7 @@ namespace EntenteichClasses {
       crc2.restore();
     }
 
-    drawTail(): void {
+    private drawTail(): void {
       crc2.save();
 
       // Verschieben des Ursprungs des Koordinatensystems zur Position des Entenschwanzes
