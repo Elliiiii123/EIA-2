@@ -4,12 +4,17 @@ var EntenteichClasses;
     //Eventlistener für handleLoad Funktion
     window.addEventListener("load", handleLoad);
     let allObjects = [];
+    let Button;
     function handleLoad(_event) {
         //query selector um auf den canvas zuzugreifen und überprüfen ob er da ist
         let canvas = document.querySelector("canvas");
         if (!canvas)
             return;
         EntenteichClasses.crc2 = canvas.getContext("2d");
+        canvas.addEventListener("click", handleCanvasClick);
+        //Funktioniert nicht
+        Button = document.querySelector("#Button");
+        Button.addEventListener("click", clickToCreateDuck);
         for (let i = 0; i < 7; i++) {
             //neue Wolke wird an zufälliger Position erzeugt
             let cloud = new EntenteichClasses.Cloud(Math.random() * 200, Math.random() * 150, 0, new EntenteichClasses.Vector(0, 0), "white");
@@ -25,7 +30,11 @@ var EntenteichClasses;
         for (let i = 0; i < 4; i++) {
             allObjects.push(createHeron());
         }
-        let bush = new EntenteichClasses.Bush(310, 580);
+        let bread = new EntenteichClasses.BreadCrumps(310, 580);
+        //Bread bei x,y vom click erstellen & da bleibens
+        console.log(bread);
+        allObjects.push(bread);
+        let bush = new EntenteichClasses.Bush(200, 200);
         console.log(bush);
         allObjects.push(bush);
         for (let i = 0; i < 8; i++) {
@@ -57,6 +66,11 @@ var EntenteichClasses;
         let color = Math.random() < 0.5 ? "yellow" : "brown"; // Zufällige Farbe (gelb oder braun)
         let duck = new EntenteichClasses.Duck(x, y, 5, new EntenteichClasses.Vector(1, 0), color, state);
         return duck;
+    }
+    function clickToCreateDuck() {
+        for (let i = 0; i < 1; i++) {
+            allObjects.push(createDuck());
+        }
     }
     function createHeron() {
         let r = Math.random();
@@ -102,6 +116,29 @@ var EntenteichClasses;
         drawLake();
         drawFlower(200, 563, "pink");
         drawFlowers();
+    }
+    //Funktioniert noch nicht
+    function handleCanvasClick(event) {
+        console.log("canvas is clicked");
+        // Mausposition im Canvas-Koordinatensystem erhalten
+        const x = event.offsetX;
+        const y = event.offsetY;
+        // console.log (x,y)
+        for (const object of allObjects) {
+            if (object instanceof EntenteichClasses.BreadCrumps) {
+                const breadCrumps = object;
+                breadCrumps.checkHit();
+                // Berechnung der rechteckigen Begrenzung um die Ente herum
+            }
+        }
+        // Überprüfen, ob das Klickereignis innerhalb der Ente liegt
+        for (const object of allObjects) {
+            if (object instanceof EntenteichClasses.Duck) {
+                const duck = object;
+                duck.checkHit(x, y);
+                // Berechnung der rechteckigen Begrenzung um die Ente herum
+            }
+        }
     }
     function drawSun() {
         //Zentrum und Radius des Gradienten für die Sonne

@@ -1,7 +1,7 @@
 namespace EntenteichClasses {
     export abstract class Drawable {
-        protected x:number;
-        protected y:number;
+        public x:number;
+        public y:number;
 
         constructor (_x:number, _y:number){
             this.x = _x;

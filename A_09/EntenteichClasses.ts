@@ -4,8 +4,8 @@ namespace EntenteichClasses {
     window.addEventListener("load", handleLoad)
     //Definiton der crc2 Variable als den HTML Canvas
     export let crc2: CanvasRenderingContext2D;
-
     let allObjects: Drawable[] = [];
+    let Button: HTMLButtonElement;
     
     function handleLoad(_event:Event):void{
         //query selector um auf den canvas zuzugreifen und überprüfen ob er da ist
@@ -13,6 +13,10 @@ namespace EntenteichClasses {
         if (!canvas)
             return;
         crc2 = <CanvasRenderingContext2D>canvas.getContext("2d");
+        canvas.addEventListener("click", handleCanvasClick);
+        //Funktioniert nicht
+        Button = <HTMLButtonElement>document.querySelector("#Button");
+        Button.addEventListener("click", clickToCreateDuck);
 
         for (let i:number = 0;i<7;i++){
             //neue Wolke wird an zufälliger Position erzeugt
@@ -33,7 +37,12 @@ namespace EntenteichClasses {
             allObjects.push(createHeron());
         }
 
-        let bush: Bush = new Bush(310, 580);
+        let bread: BreadCrumps = new BreadCrumps(310, 580);
+        //Bread bei x,y vom click erstellen & da bleibens
+        console.log(bread);
+        allObjects.push(bread);
+
+        let bush: Bush = new Bush(200, 200);
         console.log(bush);
         allObjects.push(bush);
 
@@ -73,6 +82,14 @@ namespace EntenteichClasses {
         let duck: Duck = new Duck(x, y, 5, new Vector(1, 0), color, state);
         return duck;
     }
+
+    function clickToCreateDuck(): void{
+        for (let i:number = 0;i<1;i++){
+            allObjects.push(createDuck());
+        }
+    }
+
+
 
     function createHeron(): Heron{
 
@@ -129,6 +146,33 @@ namespace EntenteichClasses {
         drawFlower(200,563, "pink");
         drawFlowers();
     }
+
+    //Funktioniert noch nicht
+    function handleCanvasClick(event: MouseEvent): void {
+        console.log("canvas is clicked");
+        // Mausposition im Canvas-Koordinatensystem erhalten
+        const x = event.offsetX;
+        const y = event.offsetY;
+        // console.log (x,y)
+
+        for (const object of allObjects) {
+            if (object instanceof BreadCrumps) {
+                const breadCrumps = object as BreadCrumps;
+                breadCrumps.checkHit();
+                // Berechnung der rechteckigen Begrenzung um die Ente herum
+            }
+        }
+    
+        // Überprüfen, ob das Klickereignis innerhalb der Ente liegt
+        for (const object of allObjects) {
+            if (object instanceof Duck) {
+                const duck = object as Duck;
+                duck.checkHit(x,y);
+                // Berechnung der rechteckigen Begrenzung um die Ente herum
+            }
+        }
+    }
+    
 
     function drawSun():void {
         //Zentrum und Radius des Gradienten für die Sonne
@@ -342,5 +386,6 @@ namespace EntenteichClasses {
             drawFlower(randomX, randomY, randomColor);
         }
     }
+    
 }
 
