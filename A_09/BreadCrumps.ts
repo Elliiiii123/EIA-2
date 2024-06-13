@@ -15,13 +15,11 @@ namespace EntenteichClasses {
             let numberOfParticles: number = 7; // Anzahl der Partikel in der Wolke
             let breadWidth: number = 80; // Breite der Wolke
             let breadHeight: number = 70; // Höhe der Wolke
-            let xPosition: number = 310; // Feste X-Position der Wolke
-            let yPosition: number = 580; // Y-Position der Wolke
             let random = pseudoRandom(42)
         
             for (let i = 0; i < numberOfParticles; i++) {
-                let x = xPosition + (i * (breadWidth / numberOfParticles)); // Feste X-Position für jeden Partikel, abhängig von der Wolkenbreite
-                let y = yPosition + (random() * breadHeight); // Zufällige Y-Position innerhalb der Wolke
+                let x = this.x + (i * (breadWidth / numberOfParticles)); // Feste X-Position für jeden Partikel, abhängig von der Wolkenbreite
+                let y = this.y + (random() * breadHeight); // Zufällige Y-Position innerhalb der Wolke
                 this.drawBreadParticle(x, y); // Partikel zeichnen
             }
         }

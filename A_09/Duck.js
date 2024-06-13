@@ -6,15 +6,39 @@ var EntenteichClasses;
         isClicked = false;
         clickCounter = 0;
         previousState;
-        constructor(_x, _y, _size, _direction, _color, _state) {
+        targetX;
+        targetY;
+        speed;
+        constructor(_x, _y, _size, _speed, _direction, _color, _state) {
             super(_x, _y, _size, _direction, _color);
             //console.log("Duck Constructor")
             this.state = _state;
             this.direction = Duck.getRandomDirection();
             this.previousState = _state;
+            this.targetX = null;
+            this.targetY = null;
+            this.speed = _speed;
         }
         move() {
             //console.log("Duck move")
+            if (this.targetX !== null && this.targetY !== null) {
+                const dx = this.targetX - this.x;
+                const dy = this.targetY - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance > this.speed) {
+                    this.x += (dx / distance) * this.speed;
+                    this.y += (dy / distance) * this.speed;
+                }
+                else {
+                    this.x = this.targetX;
+                    this.y = this.targetY;
+                    this.targetX = null;
+                    this.targetY = null;
+                    if (this.state === EntenteichClasses.DuckState.Run) {
+                        this.state = this.previousState;
+                    }
+                }
+            }
             if (this.isClicked) {
                 this.clickCounter++;
                 if (this.clickCounter >= 5) {
@@ -24,6 +48,7 @@ var EntenteichClasses;
                 }
             }
             switch (this.state) {
+                case EntenteichClasses.DuckState.Run:
                 case EntenteichClasses.DuckState.Swim:
                     this.x += this.direction.x;
                     if (this.x >= 360 || this.x <= 50) {
@@ -58,6 +83,11 @@ var EntenteichClasses;
                 return new EntenteichClasses.Vector(0, 0); // Keine Bewegung
             }
         }
+        setTarget(x, y) {
+            this.targetX = x;
+            this.targetY = y;
+            this.state = EntenteichClasses.DuckState.Run;
+        }
         checkHit(_x, _y) {
             const minX = _x - 3 * this.size;
             const maxX = _x + 3 * this.size;
@@ -67,6 +97,10 @@ var EntenteichClasses;
             if (this.x > minX && this.x < maxX && this.y > minY && this.y < maxY) {
                 this.click(); // Aufruf einer Methode in der Duck-Klasse, um den Klick zu behandeln
                 // break Schleife verlassen, wenn die Ente gefunden wurde
+                return true;
+            }
+            else {
+                return false;
             }
         }
         click() {
@@ -88,6 +122,9 @@ var EntenteichClasses;
                         break;
                     case EntenteichClasses.DuckState.Dive:
                         this.drawTail();
+                        break;
+                    case EntenteichClasses.DuckState.Run:
+                        this.drawRun();
                         break;
                     default:
                         this.drawStanding();
@@ -284,6 +321,59 @@ var EntenteichClasses;
                 EntenteichClasses.crc2.fillStyle = "brown";
             }
             EntenteichClasses.crc2.fill();
+            EntenteichClasses.crc2.closePath();
+            // Wiederherstellen des ursprünglichen Zustands des Canvas
+            EntenteichClasses.crc2.restore();
+        }
+        drawRun() {
+            EntenteichClasses.crc2.save();
+            // Verschieben des Ursprungs des Koordinatensystems zur Position der Ente
+            EntenteichClasses.crc2.translate(this.x, this.y);
+            if (this.direction.x != 0)
+                EntenteichClasses.crc2.scale(this.direction.x, 1);
+            // Körper der Ente als Ellipse
+            let bodyRadiusX = 15; // Horizontaler Radius des Körpers
+            let bodyRadiusY = 10; // Vertikaler Radius des Körpers
+            EntenteichClasses.crc2.beginPath();
+            EntenteichClasses.crc2.ellipse(0, 0, bodyRadiusX, bodyRadiusY, 0, 0, Math.PI * 2); // Körper als Ellipse
+            EntenteichClasses.crc2.fillStyle = "yellow"; // Gelbe Farbe für den Körper
+            EntenteichClasses.crc2.fill();
+            EntenteichClasses.crc2.closePath();
+            // Kopf der Ente als Kreis mit variabler Rotation
+            EntenteichClasses.crc2.rotate(0); // Rotation des Kopfes
+            EntenteichClasses.crc2.beginPath();
+            EntenteichClasses.crc2.arc(20, -5, 5, 0, Math.PI * 2); // Kopf als Kreis
+            EntenteichClasses.crc2.fillStyle = "yellow"; // Gelbe Farbe für den Kopf
+            EntenteichClasses.crc2.fill();
+            EntenteichClasses.crc2.closePath();
+            // Auge der Ente als Kreis
+            EntenteichClasses.crc2.beginPath();
+            EntenteichClasses.crc2.arc(22, -5, 2, 0, Math.PI * 2); // Auge als Kreis
+            EntenteichClasses.crc2.fillStyle = "black"; // Schwarze Farbe für das Auge
+            EntenteichClasses.crc2.fill();
+            EntenteichClasses.crc2.closePath();
+            // Schnabel der Ente
+            EntenteichClasses.crc2.beginPath();
+            EntenteichClasses.crc2.moveTo(25, -5);
+            EntenteichClasses.crc2.lineTo(30, -3);
+            EntenteichClasses.crc2.lineTo(25, -1);
+            EntenteichClasses.crc2.strokeStyle = "orange"; // Orangefarbener Schnabel
+            EntenteichClasses.crc2.stroke();
+            EntenteichClasses.crc2.closePath();
+            // Rechter Flügel der Ente als schmale Ellipse
+            EntenteichClasses.crc2.beginPath();
+            EntenteichClasses.crc2.ellipse(-4, -2, 15, 7, 2, 0, Math.PI * 2); // Rechter Flügel als Ellipse
+            EntenteichClasses.crc2.fillStyle = "brown"; // Braune Farbe für den Flügel
+            EntenteichClasses.crc2.fill();
+            EntenteichClasses.crc2.closePath();
+            // Beine der Ente
+            EntenteichClasses.crc2.beginPath();
+            EntenteichClasses.crc2.moveTo(0, 7); // Startpunkt des Beins
+            EntenteichClasses.crc2.lineTo(0, 15); // Obere Linie des Beins
+            EntenteichClasses.crc2.lineTo(-3, 15); // Schräge Linie des Beins
+            EntenteichClasses.crc2.lineTo(-3, 7); // Untere Linie des Beins
+            EntenteichClasses.crc2.strokeStyle = "brown"; // Braune Farbe für die Beine
+            EntenteichClasses.crc2.stroke();
             EntenteichClasses.crc2.closePath();
             // Wiederherstellen des ursprünglichen Zustands des Canvas
             EntenteichClasses.crc2.restore();

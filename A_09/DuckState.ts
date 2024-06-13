@@ -3,6 +3,7 @@ export enum DuckState{
     Swim,
     Dive,
     Stand,
-    Shock
+    Shock,
+    Run,
   }
 }

@@ -30,10 +30,6 @@ var EntenteichClasses;
         for (let i = 0; i < 4; i++) {
             allObjects.push(createHeron());
         }
-        let bread = new EntenteichClasses.BreadCrumps(310, 580);
-        //Bread bei x,y vom click erstellen & da bleibens
-        console.log(bread);
-        allObjects.push(bread);
         let bush = new EntenteichClasses.Bush(200, 200);
         console.log(bush);
         allObjects.push(bush);
@@ -64,7 +60,7 @@ var EntenteichClasses;
             y = 350 + Math.random() * 100;
         }
         let color = Math.random() < 0.5 ? "yellow" : "brown"; // Zufällige Farbe (gelb oder braun)
-        let duck = new EntenteichClasses.Duck(x, y, 5, new EntenteichClasses.Vector(1, 0), color, state);
+        let duck = new EntenteichClasses.Duck(x, y, 5, 5, new EntenteichClasses.Vector(1, 0), color, state);
         return duck;
     }
     function clickToCreateDuck() {
@@ -121,22 +117,47 @@ var EntenteichClasses;
     function handleCanvasClick(event) {
         console.log("canvas is clicked");
         // Mausposition im Canvas-Koordinatensystem erhalten
-        const x = event.offsetX;
-        const y = event.offsetY;
+        const canvasRect = event.target.getBoundingClientRect();
+        const x = event.clientX - canvasRect.left;
+        const y = event.clientY - canvasRect.top;
         // console.log (x,y)
-        for (const object of allObjects) {
-            if (object instanceof EntenteichClasses.BreadCrumps) {
-                const breadCrumps = object;
-                breadCrumps.checkHit();
-                // Berechnung der rechteckigen Begrenzung um die Ente herum
-            }
-        }
-        // Überprüfen, ob das Klickereignis innerhalb der Ente liegt
+        let duckClicked = false;
         for (const object of allObjects) {
             if (object instanceof EntenteichClasses.Duck) {
                 const duck = object;
-                duck.checkHit(x, y);
-                // Berechnung der rechteckigen Begrenzung um die Ente herum
+                if (duck.checkHit(x, y)) {
+                    duckClicked = true;
+                    break; // Wenn eine Ente getroffen wurde, beende die Schleife
+                }
+            }
+        }
+        // for (const object of allObjects) {
+        //     if (object instanceof BreadCrumps) {
+        //         const breadCrumps = object as BreadCrumps;
+        //         breadCrumps.checkHit();
+        //     }
+        // }        
+        // Nur Breadcrumbs erstellen, wenn keine Ente geklickt wurde
+        if (!duckClicked) {
+            let bread = new EntenteichClasses.BreadCrumps(x, y - 50);
+            //Bread bei x,y vom click erstellen
+            //console.log(bread);
+            allObjects.push(bread);
+            let closestDuck = null;
+            let closestDistance = Infinity;
+            for (const object of allObjects) {
+                if (object instanceof EntenteichClasses.Duck) {
+                    const duck = object;
+                    const distance = Math.sqrt((duck.x - x) ** 2 + (duck.y - y) ** 2);
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestDuck = duck;
+                    }
+                }
+            }
+            if (closestDuck) {
+                //closestDuck.moveTo(x, y);
+                closestDuck.setTarget(x, y);
             }
         }
     }
