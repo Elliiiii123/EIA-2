@@ -24,7 +24,7 @@ var EntenteichClasses;
         drawBreadParticle(x, y) {
             EntenteichClasses.crc2.save();
             EntenteichClasses.crc2.beginPath();
-            EntenteichClasses.crc2.arc(x, y, 5, 0, Math.PI * 2); // Kreispartikel zeichnen
+            EntenteichClasses.crc2.arc(x, y, 4, 0, Math.PI * 2); // Kreispartikel zeichnen
             EntenteichClasses.crc2.fillStyle = "brown";
             EntenteichClasses.crc2.fill();
             EntenteichClasses.crc2.restore();

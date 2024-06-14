@@ -4,7 +4,7 @@ namespace EntenteichClasses {
     window.addEventListener("load", handleLoad)
     //Definiton der crc2 Variable als den HTML Canvas
     export let crc2: CanvasRenderingContext2D;
-    let allObjects: Drawable[] = [];
+    export let allObjects: Drawable[] = [];
     let Button: HTMLButtonElement;
     
     function handleLoad(_event:Event):void{
@@ -76,7 +76,7 @@ namespace EntenteichClasses {
         }
 
         let color: string = Math.random() < 0.5 ? "yellow" : "brown"; // Zufällige Farbe (gelb oder braun)
-        let duck: Duck = new Duck(x, y, 5,5, new Vector(1, 0), color, state);
+        let duck: Duck = new Duck(x, y, 10,5, new Vector(1, 0), color, state);
         return duck;
     }
 
@@ -161,15 +161,10 @@ namespace EntenteichClasses {
                 }
             }
         }
-        // for (const object of allObjects) {
-        //     if (object instanceof BreadCrumps) {
-        //         const breadCrumps = object as BreadCrumps;
-        //         breadCrumps.checkHit();
-        //     }
-        // }        
+    
         // Nur Breadcrumbs erstellen, wenn keine Ente geklickt wurde
         if (!duckClicked) {
-            let bread: BreadCrumps = new BreadCrumps(x, y- 50);
+            let bread: BreadCrumps = new BreadCrumps(x-25, y- 50);
             //Bread bei x,y vom click erstellen
             //console.log(bread);
             allObjects.push(bread);
@@ -193,6 +188,19 @@ namespace EntenteichClasses {
                 closestDuck.setTarget(x, y);
             }
         }
+    }
+
+    export function removeBreadCrumpsAt(x: number, y: number, size: number): void {
+        allObjects = allObjects.filter(object => {
+            if (object instanceof BreadCrumps) {
+                const breadCrumps = object as BreadCrumps;
+                const distance = Math.sqrt((breadCrumps.x - x) ** 2 + (breadCrumps.y - y) ** 2);
+                if (distance <= size+50) {
+                    return false; // Entfernt dieses Objekt aus dem Array
+                }
+            }
+            return true;
+        });
     }
     
 

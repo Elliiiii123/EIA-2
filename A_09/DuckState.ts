@@ -5,5 +5,6 @@ export enum DuckState{
     Stand,
     Shock,
     Run,
+    Eat,
   }
 }

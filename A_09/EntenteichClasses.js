@@ -3,7 +3,7 @@ var EntenteichClasses;
 (function (EntenteichClasses) {
     //Eventlistener für handleLoad Funktion
     window.addEventListener("load", handleLoad);
-    let allObjects = [];
+    EntenteichClasses.allObjects = [];
     let Button;
     function handleLoad(_event) {
         //query selector um auf den canvas zuzugreifen und überprüfen ob er da ist
@@ -19,27 +19,27 @@ var EntenteichClasses;
             //neue Wolke wird an zufälliger Position erzeugt
             let cloud = new EntenteichClasses.Cloud(Math.random() * 200, Math.random() * 150, 0, new EntenteichClasses.Vector(0, 0), "white");
             //Wolken werden an des Array angehängt
-            allObjects.push(cloud);
+            EntenteichClasses.allObjects.push(cloud);
         }
         let tree = new EntenteichClasses.Tree(389, 320);
         console.log(tree);
-        allObjects.push(tree);
+        EntenteichClasses.allObjects.push(tree);
         for (let i = 0; i < 7; i++) {
-            allObjects.push(createDuck());
+            EntenteichClasses.allObjects.push(createDuck());
         }
         for (let i = 0; i < 4; i++) {
-            allObjects.push(createHeron());
+            EntenteichClasses.allObjects.push(createHeron());
         }
         let bush = new EntenteichClasses.Bush(200, 200);
         console.log(bush);
-        allObjects.push(bush);
+        EntenteichClasses.allObjects.push(bush);
         for (let i = 0; i < 8; i++) {
             //neue Biene wird an zufälliger Position erzeugt
             let randomX = Math.random() * 2 - 1; // Zufällige Zahl zwischen -1 und 1 für die x-Richtung
             let randomY = Math.random() * 2 - 1; // Zufällige Zahl zwischen -1 und 1 für die y-Richtung
             let bee = new EntenteichClasses.Bee(Math.random() * 500, Math.random() * 500, 0.5, new EntenteichClasses.Vector(randomX, randomY));
             //Bienen werden an des Array angehängt
-            allObjects.push(bee);
+            EntenteichClasses.allObjects.push(bee);
         }
         drawBackground();
         setInterval(animate, 40);
@@ -60,12 +60,12 @@ var EntenteichClasses;
             y = 350 + Math.random() * 100;
         }
         let color = Math.random() < 0.5 ? "yellow" : "brown"; // Zufällige Farbe (gelb oder braun)
-        let duck = new EntenteichClasses.Duck(x, y, 5, 5, new EntenteichClasses.Vector(1, 0), color, state);
+        let duck = new EntenteichClasses.Duck(x, y, 10, 5, new EntenteichClasses.Vector(1, 0), color, state);
         return duck;
     }
     function clickToCreateDuck() {
         for (let i = 0; i < 1; i++) {
-            allObjects.push(createDuck());
+            EntenteichClasses.allObjects.push(createDuck());
         }
     }
     function createHeron() {
@@ -93,7 +93,7 @@ var EntenteichClasses;
     function animate() {
         console.log("animate");
         drawBackground();
-        for (let object of allObjects) {
+        for (let object of EntenteichClasses.allObjects) {
             object.update();
         }
     }
@@ -122,7 +122,7 @@ var EntenteichClasses;
         const y = event.clientY - canvasRect.top;
         // console.log (x,y)
         let duckClicked = false;
-        for (const object of allObjects) {
+        for (const object of EntenteichClasses.allObjects) {
             if (object instanceof EntenteichClasses.Duck) {
                 const duck = object;
                 if (duck.checkHit(x, y)) {
@@ -131,21 +131,15 @@ var EntenteichClasses;
                 }
             }
         }
-        // for (const object of allObjects) {
-        //     if (object instanceof BreadCrumps) {
-        //         const breadCrumps = object as BreadCrumps;
-        //         breadCrumps.checkHit();
-        //     }
-        // }        
         // Nur Breadcrumbs erstellen, wenn keine Ente geklickt wurde
         if (!duckClicked) {
-            let bread = new EntenteichClasses.BreadCrumps(x, y - 50);
+            let bread = new EntenteichClasses.BreadCrumps(x - 25, y - 50);
             //Bread bei x,y vom click erstellen
             //console.log(bread);
-            allObjects.push(bread);
+            EntenteichClasses.allObjects.push(bread);
             let closestDuck = null;
             let closestDistance = Infinity;
-            for (const object of allObjects) {
+            for (const object of EntenteichClasses.allObjects) {
                 if (object instanceof EntenteichClasses.Duck) {
                     const duck = object;
                     const distance = Math.sqrt((duck.x - x) ** 2 + (duck.y - y) ** 2);
@@ -161,6 +155,19 @@ var EntenteichClasses;
             }
         }
     }
+    function removeBreadCrumpsAt(x, y, size) {
+        EntenteichClasses.allObjects = EntenteichClasses.allObjects.filter(object => {
+            if (object instanceof EntenteichClasses.BreadCrumps) {
+                const breadCrumps = object;
+                const distance = Math.sqrt((breadCrumps.x - x) ** 2 + (breadCrumps.y - y) ** 2);
+                if (distance <= size + 50) {
+                    return false; // Entfernt dieses Objekt aus dem Array
+                }
+            }
+            return true;
+        });
+    }
+    EntenteichClasses.removeBreadCrumpsAt = removeBreadCrumpsAt;
     function drawSun() {
         //Zentrum und Radius des Gradienten für die Sonne
         var centerX = EntenteichClasses.crc2.canvas.width / 2;
