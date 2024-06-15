@@ -5,9 +5,9 @@ var EntenteichClasses;
         state;
         isClicked = false;
         clickCounter = 0;
-        previousState;
-        targetX;
-        targetY;
+        previousState; //vorheriger Zustand der Ente
+        targetX; //Klick Koordinate x
+        targetY; //Klick Koordinate y
         speed;
         waitTime = 40; // Wartezeit in Frames
         waitCounter = 0; // Zähler für die Wartezeit
@@ -27,63 +27,68 @@ var EntenteichClasses;
         move() {
             if (this.returning) {
                 // Bewegung zur vorherigen Position
-                const dx = this.previousX - this.x;
-                const dy = this.previousY - this.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
+                const dx = this.previousX - this.x; // Differenz in x-Richtung zur vorherigen Position
+                const dy = this.previousY - this.y; // Differenz in y-Richtung zur vorherigen Position
+                const distance = Math.sqrt(dx * dx + dy * dy); // Berechne die Entfernung zur vorherigen Position
                 if (distance > this.speed) {
+                    // Wenn die Entfernung größer ist als die Geschwindigkeit der Ente, bewegt sich die Ente in Richtung der vorherigen Position
                     this.x += (dx / distance) * this.speed;
                     this.y += (dy / distance) * this.speed;
                 }
                 else {
+                    // Wenn die Ente die vorherige Position erreicht hat
                     this.x = this.previousX;
                     this.y = this.previousY;
-                    this.returning = false;
+                    this.returning = false; // Beende den Rückweg
                     this.previousX = null;
                     this.previousY = null;
-                    this.state = this.previousState;
+                    this.state = this.previousState; // Ente wird in ihren verherigen State gesetzt
                 }
             }
             else if (this.targetX !== null && this.targetY !== null) {
+                // Wenn ein Klick gesetzt ist
                 const dx = this.targetX - this.x;
                 const dy = this.targetY - this.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
+                const distance = Math.sqrt(dx * dx + dy * dy); // Berechne die Entfernung zum Klick
                 if (distance > this.speed) {
+                    // Wenn die Entfernung größer ist als die Geschwindigkeit der Ente, bewege die Ente in Richtung des Klicks
                     this.x += (dx / distance) * this.speed;
                     this.y += (dy / distance) * this.speed;
                 }
                 else {
+                    // Wenn die Ente die Koordinaten des Kicks erreicht hat
                     this.x = this.targetX;
                     this.y = this.targetY;
                     this.targetX = null;
                     this.targetY = null;
                     this.state = EntenteichClasses.DuckState.Eat; // Wechsel zum Esszustand
-                    this.waitCounter = this.waitTime; // Setze den Wartezähler
-                    EntenteichClasses.removeBreadCrumpsAt(this.x, this.y, this.size);
+                    this.waitCounter = this.waitTime; // Setze den Zähler zum Pausieren der Entenbewegung
+                    EntenteichClasses.removeBreadCrumpsAt(this.x, this.y, this.size); // Entferne die Brotkrumen wenn die Ente an der Koordinate ist
                 }
             }
             else if (this.waitCounter > 0) {
-                // Wartezeit runterzählen
-                this.waitCounter--;
+                // Wenn die Ente Pausiert/Isst
+                this.waitCounter--; //Die Zeit die sie pausiert wird runtergezählt
                 if (this.waitCounter <= 0) {
                     this.returning = true; // Beginne den Rückweg
-                    this.state = EntenteichClasses.DuckState.Run; // Während des Rückwegs im Run-Status
+                    this.state = EntenteichClasses.DuckState.Run; // Während des Rückwegs im Run State
                 }
             }
             else {
                 switch (this.state) {
-                    case EntenteichClasses.DuckState.Swim:
+                    case EntenteichClasses.DuckState.Swim: // wenn die Ente schwimmt
                         this.x += this.direction.x;
                         if (this.x >= 360 || this.x <= 50) {
                             this.direction.x *= -1;
                         }
                         break;
-                    case EntenteichClasses.DuckState.Dive:
+                    case EntenteichClasses.DuckState.Dive: // wenn die Ente taucht
                         this.x += this.direction.x * 0.5;
                         if (this.x >= 360 || this.x <= 50) {
                             this.direction.x *= -1;
                         }
                         break;
-                    default: // assuming Duckstate.Stand ist der default state
+                    default: // wenn die Ente steht
                         this.x += this.direction.x;
                         if (this.x >= 400) {
                             this.x = 0; // Ente erscheint auf der linken Seite
@@ -93,12 +98,13 @@ var EntenteichClasses;
                         }
                 }
             }
+            //Wenn die Ente angeklickt wird
             if (this.isClicked) {
                 this.clickCounter++;
-                if (this.clickCounter >= 5) {
+                if (this.clickCounter >= 7) { //Ente verändert sieben Frames lang ihren zustand
                     this.clickCounter = 0;
-                    this.isClicked = false;
-                    this.state = this.previousState;
+                    this.isClicked = false; // Setze den Klickzustand zurück
+                    this.state = this.previousState; // Ente wird in ihren vorherigen Zustand gesetzt
                 }
             }
         }
@@ -114,34 +120,35 @@ var EntenteichClasses;
                 return new EntenteichClasses.Vector(0, 0); // Keine Bewegung
             }
         }
-        setTarget(x, y) {
+        setTarget(_x, _y) {
             this.previousX = this.x; // Speichern der aktuellen Position
             this.previousY = this.y;
-            this.targetX = x;
-            this.targetY = y;
-            this.state = EntenteichClasses.DuckState.Run;
+            this.targetX = _x; // Geklickte position setzen
+            this.targetY = _y;
+            this.state = EntenteichClasses.DuckState.Run; // Ente in den Run State
         }
         checkHit(_x, _y) {
             const minX = _x - 3 * this.size;
             const maxX = _x + 3 * this.size;
             const minY = _y - 2 * this.size;
-            const maxY = _y + 2 * this.size;
+            const maxY = _y + 2 * this.size; // Grenzen um die Ente Festlegen
             // Überprüfen, ob das Klickereignis innerhalb des Rechtecks liegt
             if (this.x > minX && this.x < maxX && this.y > minY && this.y < maxY) {
-                this.click(); // Aufruf einer Methode in der Duck-Klasse, um den Klick zu behandeln
+                this.click(); // Aufruf der click Methode
                 // break Schleife verlassen, wenn die Ente gefunden wurde
-                return true;
+                return true; //true zurückgeben wenn Ente nicht getroffen wird
             }
             else {
-                return false;
+                return false; //false zurückgeben wenn Ente nicht getroffen wird
             }
         }
         click() {
-            console.log("duck is clicked");
+            //console.log("duck is clicked");
             if (!this.isClicked) {
-                this.isClicked = true;
-                this.previousState = this.state;
-                this.state = EntenteichClasses.DuckState.Shock;
+                //Ente ist nicht schon angeklickt
+                this.isClicked = true; //Ente ist geklickt
+                this.previousState = this.state; //Aktuellen zustand der Ente speichern
+                this.state = EntenteichClasses.DuckState.Shock; //ENten zustand zu Shock Zustand ändern
             }
         }
         draw() {
