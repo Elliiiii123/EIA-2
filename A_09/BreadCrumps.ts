@@ -24,11 +24,11 @@ namespace EntenteichClasses {
             }
         }
     
-        private drawBreadParticle(x: number, y: number): void {
+        private drawBreadParticle(_x: number, _y: number): void {
       
             crc2.save();
             crc2.beginPath();
-            crc2.arc(x, y, 4, 0, Math.PI * 2); // Kreispartikel zeichnen
+            crc2.arc(_x, _y, 4, 0, Math.PI * 2); // Kreispartikel zeichnen
             crc2.fillStyle = "brown"; 
             crc2.fill();
             crc2.restore();    

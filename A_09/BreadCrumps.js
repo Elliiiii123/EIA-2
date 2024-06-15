@@ -21,10 +21,10 @@ var EntenteichClasses;
                 this.drawBreadParticle(x, y); // Partikel zeichnen
             }
         }
-        drawBreadParticle(x, y) {
+        drawBreadParticle(_x, _y) {
             EntenteichClasses.crc2.save();
             EntenteichClasses.crc2.beginPath();
-            EntenteichClasses.crc2.arc(x, y, 4, 0, Math.PI * 2); // Kreispartikel zeichnen
+            EntenteichClasses.crc2.arc(_x, _y, 4, 0, Math.PI * 2); // Kreispartikel zeichnen
             EntenteichClasses.crc2.fillStyle = "brown";
             EntenteichClasses.crc2.fill();
             EntenteichClasses.crc2.restore();

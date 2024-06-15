@@ -114,18 +114,21 @@ var EntenteichClasses;
         drawFlowers();
     }
     //Funktioniert noch nicht
-    function handleCanvasClick(event) {
+    function handleCanvasClick(_event) {
         console.log("canvas is clicked");
         // Mausposition im Canvas-Koordinatensystem erhalten
-        const canvasRect = event.target.getBoundingClientRect();
-        const x = event.clientX - canvasRect.left;
-        const y = event.clientY - canvasRect.top;
+        const canvasRect = _event.target.getBoundingClientRect();
+        const x = _event.clientX - canvasRect.left;
+        const y = _event.clientY - canvasRect.top; //Berechnung der Klick Koordinaten
         // console.log (x,y)
-        let duckClicked = false;
+        let duckClicked = false; //Variable für  zur verfolgung des Klicks
+        //Checken ob Ente geklickt wurde
         for (const object of EntenteichClasses.allObjects) {
             if (object instanceof EntenteichClasses.Duck) {
+                // Wenn das Objekt eine Ente ist
                 const duck = object;
                 if (duck.checkHit(x, y)) {
+                    // Überprüfe, ob die Ente getroffen wurde mit checkHit in der Entenklasse
                     duckClicked = true;
                     break; // Wenn eine Ente getroffen wurde, beende die Schleife
                 }
@@ -133,38 +136,42 @@ var EntenteichClasses;
         }
         // Nur Breadcrumbs erstellen, wenn keine Ente geklickt wurde
         if (!duckClicked) {
-            let bread = new EntenteichClasses.BreadCrumps(x - 25, y - 50);
-            //Bread bei x,y vom click erstellen
+            let bread = new EntenteichClasses.BreadCrumps(x - 25, y - 50); //Neus Brot an der geklickten stelle erzeugen
             //console.log(bread);
-            EntenteichClasses.allObjects.push(bread);
-            let closestDuck = null;
-            let closestDistance = Infinity;
+            EntenteichClasses.allObjects.push(bread); //neues Brotobjekt in den allObjects Array pushen
+            let closestDuck = null; // Variable, um die nächste Ente zu speichern
+            let closestDistance = Infinity; // Variable, um die kürzeste Distanz zu speichern
+            // Finden der nächsten Ente zur Klickposition
             for (const object of EntenteichClasses.allObjects) {
                 if (object instanceof EntenteichClasses.Duck) {
+                    // Wenn das Objekt eine Ente ist
                     const duck = object;
-                    const distance = Math.sqrt((duck.x - x) ** 2 + (duck.y - y) ** 2);
+                    const distance = Math.sqrt((duck.x - x) ** 2 + (duck.y - y) ** 2); // Berechnung der Distanz zur Ente
                     if (distance < closestDistance) {
+                        // Wenn die Distanz kürzer ist als die bisher kürzeste
                         closestDistance = distance;
-                        closestDuck = duck;
+                        closestDuck = duck; // Speichere diese Ente als nächste Ente
                     }
                 }
             }
             if (closestDuck) {
                 //closestDuck.moveTo(x, y);
-                closestDuck.setTarget(x, y);
+                closestDuck.setTarget(x, y); // Setze das Ziel der Ente auf die Klickposition
             }
         }
     }
-    function removeBreadCrumpsAt(x, y, size) {
-        EntenteichClasses.allObjects = EntenteichClasses.allObjects.filter(object => {
+    function removeBreadCrumpsAt(_x, _y, _size) {
+        EntenteichClasses.allObjects = EntenteichClasses.allObjects.filter((object) => {
             if (object instanceof EntenteichClasses.BreadCrumps) {
+                // Wenn das Objekt ein Brotkrumen ist
                 const breadCrumps = object;
-                const distance = Math.sqrt((breadCrumps.x - x) ** 2 + (breadCrumps.y - y) ** 2);
-                if (distance <= size + 50) {
+                const distance = Math.sqrt((breadCrumps.x - _x) ** 2 + (breadCrumps.y - _y) ** 2); // Berechnung der Distanz zum Brotkrumen
+                if (distance <= _size + 50) {
+                    // Wenn der Brotkrumen nah an einer Ente ist
                     return false; // Entfernt dieses Objekt aus dem Array
                 }
             }
-            return true;
+            return true; // Behalte alle anderen Objekte im Array
         });
     }
     EntenteichClasses.removeBreadCrumpsAt = removeBreadCrumpsAt;
