@@ -1,6 +1,7 @@
 namespace EntenteichClasses {
 export enum HeronState{
     Swim,
-    Stand
+    Stand,
+    Shock
   }
 }

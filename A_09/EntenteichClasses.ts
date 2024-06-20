@@ -160,6 +160,7 @@ namespace EntenteichClasses {
     // console.log (x,y)
 
     let duckClicked = false; //Variable für  zur verfolgung des Klicks
+    let heronClicked = false;
 
     //Checken ob Ente geklickt wurde
     for (const object of allObjects) {
@@ -174,8 +175,21 @@ namespace EntenteichClasses {
       }
     }
 
+        //Checken ob Kranich geklickt wurde
+    for (const object of allObjects) {
+      if (object instanceof Heron) {
+        // Wenn das Objekt ein Kranich ist
+        const heron = object as Heron;
+        if (heron.checkHit(x, y)) {
+          // Überprüfe, ob der Kranich getroffen wurde mit checkHit in der Kranichklasse
+          heronClicked = true;
+          break; // Wenn ein Kranich getroffen wurde, beende die Schleife
+        }
+      }
+    }
+
     // Nur Breadcrumbs erstellen, wenn keine Ente geklickt wurde
-    if (!duckClicked) {
+    if (!duckClicked && !heronClicked) {
       let bread: BreadCrumps = new BreadCrumps(x - 25, y - 50); //Neus Brot an der geklickten stelle erzeugen
       //console.log(bread);
       allObjects.push(bread); //neues Brotobjekt in den allObjects Array pushen
@@ -189,7 +203,10 @@ namespace EntenteichClasses {
           // Wenn das Objekt eine Ente ist
           const duck = object as Duck;
           const distance = Math.sqrt((duck.x - x) ** 2 + (duck.y - y) ** 2); // Berechnung der Distanz zur Ente
-          if (distance < closestDistance) {
+          const stateRun = DuckState.Run;
+          const stateEat = DuckState.Eat;
+
+          if (distance < closestDistance && duck.state !== stateRun && duck.state !== stateEat) {
             // Wenn die Distanz kürzer ist als die bisher kürzeste
             closestDistance = distance;
             closestDuck = duck; // Speichere diese Ente als nächste Ente

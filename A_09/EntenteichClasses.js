@@ -122,6 +122,7 @@ var EntenteichClasses;
         const y = _event.clientY - canvasRect.top; //Berechnung der Klick Koordinaten
         // console.log (x,y)
         let duckClicked = false; //Variable für  zur verfolgung des Klicks
+        let heronClicked = false;
         //Checken ob Ente geklickt wurde
         for (const object of EntenteichClasses.allObjects) {
             if (object instanceof EntenteichClasses.Duck) {
@@ -134,8 +135,20 @@ var EntenteichClasses;
                 }
             }
         }
+        //Checken ob Kranich geklickt wurde
+        for (const object of EntenteichClasses.allObjects) {
+            if (object instanceof EntenteichClasses.Heron) {
+                // Wenn das Objekt ein Kranich ist
+                const heron = object;
+                if (heron.checkHit(x, y)) {
+                    // Überprüfe, ob der Kranich getroffen wurde mit checkHit in der Kranichklasse
+                    heronClicked = true;
+                    break; // Wenn ein Kranich getroffen wurde, beende die Schleife
+                }
+            }
+        }
         // Nur Breadcrumbs erstellen, wenn keine Ente geklickt wurde
-        if (!duckClicked) {
+        if (!duckClicked && !heronClicked) {
             let bread = new EntenteichClasses.BreadCrumps(x - 25, y - 50); //Neus Brot an der geklickten stelle erzeugen
             //console.log(bread);
             EntenteichClasses.allObjects.push(bread); //neues Brotobjekt in den allObjects Array pushen
@@ -147,7 +160,9 @@ var EntenteichClasses;
                     // Wenn das Objekt eine Ente ist
                     const duck = object;
                     const distance = Math.sqrt((duck.x - x) ** 2 + (duck.y - y) ** 2); // Berechnung der Distanz zur Ente
-                    if (distance < closestDistance) {
+                    const stateRun = EntenteichClasses.DuckState.Run;
+                    const stateEat = EntenteichClasses.DuckState.Eat;
+                    if (distance < closestDistance && duck.state !== stateRun && duck.state !== stateEat) {
                         // Wenn die Distanz kürzer ist als die bisher kürzeste
                         closestDistance = distance;
                         closestDuck = duck; // Speichere diese Ente als nächste Ente

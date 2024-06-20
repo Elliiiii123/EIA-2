@@ -90,10 +90,10 @@ var EntenteichClasses;
                         break;
                     default: // wenn die Ente steht
                         this.x += this.direction.x;
-                        if (this.x >= 400) {
+                        if (this.x > 400) {
                             this.x = 0; // Ente erscheint auf der linken Seite
                         }
-                        else if (this.x <= 0) {
+                        else if (this.x < 0) {
                             this.x = 400; // Ente erscheint auf der rechten Seite
                         }
                 }
